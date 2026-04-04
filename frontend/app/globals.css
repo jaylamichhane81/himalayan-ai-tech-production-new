@@ -123,24 +123,42 @@ body {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .section-container {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 /* Responsive typography */
 h1, .heading-xl {
-  font-size: clamp(1.875rem, 5vw, 3.75rem);
+  font-size: clamp(1.875rem, 5vw, 4rem);
 }
 
 h2, .heading-lg {
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
 }
 
 h3, .heading-md {
-  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+p, .body-text {
+  font-size: clamp(0.875rem, 2vw, 1.25rem);
 }
 
 /* Mobile-first approach */
@@ -151,8 +169,32 @@ h3, .heading-md {
   
   .btn-primary,
   .btn-secondary {
-    padding: 0.625rem 1.25rem;
+    padding: 0.5rem 1rem;
     font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 767px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
   }
 }
 
@@ -163,9 +205,27 @@ h3, .heading-md {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
   transition: all 300ms ease;
+}
+
+@media (min-width: 640px) {
+  .card-premium {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-premium {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-premium {
+    padding: 2.5rem;
+  }
 }
 
 .card-premium:hover {
@@ -175,8 +235,74 @@ h3, .heading-md {
   transform: translateY(-4px);
 }
 
-@media (max-width: 640px) {
-  .card-premium {
-    padding: 1.5rem;
+/* Enhanced image styling with glows */
+.image-glow-cyan {
+  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.6));
+  transition: all 300ms ease;
+}
+
+.image-glow-cyan:hover {
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8)) drop-shadow(0 0 50px rgba(0, 212, 255, 0.4));
+  transform: scale(1.05);
+}
+
+.image-glow-purple {
+  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.5));
+  transition: all 300ms ease;
+}
+
+.image-glow-purple:hover {
+  filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.7)) drop-shadow(0 0 50px rgba(124, 58, 237, 0.3));
+  transform: scale(1.05);
+}
+
+/* Premium glow effects */
+.image-glow-premium {
+  filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4)) drop-shadow(0 0 25px rgba(124, 58, 237, 0.3));
+  transition: all 400ms ease;
+}
+
+.image-glow-premium:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)) drop-shadow(0 0 35px rgba(124, 58, 237, 0.4));
+  transform: scale(1.05);
+}
+
+/* Logo and stamp animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3), 0 0 30px rgba(124, 58, 237, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(124, 58, 237, 0.3);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

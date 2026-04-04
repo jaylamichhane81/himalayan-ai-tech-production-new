@@ -49,7 +49,12 @@ export function Contact() {
     setLoading(true)
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000'
+      const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000'
+      const trimmedApiUrl = rawApiUrl.replace(/\/+$/, '')
+      if (trimmedApiUrl.includes('localhost:3000')) {
+        console.warn('NEXT_PUBLIC_API_URL is set to localhost:3000; should be localhost:10000 for backend.\nRunning with 10000 fallback.')
+      }
+      const apiUrl = trimmedApiUrl === 'http://localhost:3000' ? 'http://localhost:10000' : trimmedApiUrl
       const response = await fetch(`${apiUrl}/contact/`, {
         method: 'POST',
         headers: { 
@@ -78,22 +83,22 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="section-container py-20">
+    <section id="contact" className="section-container py-12 sm:py-16 md:py-20 px-4 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-2xl mx-auto"
+        className="max-w-3xl mx-auto"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gradient">Let's Build Your AI Solution</h2>
-        <p className="text-center text-slate-400 mb-12 text-lg">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4 text-gradient">Let's Build Your AI Solution</h2>
+        <p className="text-center text-slate-400 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg">
           Get a free AI audit. No commitment, no pressure. Just genuine expertise.
         </p>
 
         <motion.form
           onSubmit={handleSubmit}
-          className="card-premium space-y-6 border-ai-cyan/20 hover:border-ai-cyan/50"
+          className="card-premium space-y-4 sm:space-y-6 border-ai-cyan/20 hover:border-ai-cyan/50 p-4 sm:p-6 md:p-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -134,7 +139,7 @@ export function Contact() {
               }}
               placeholder="Your full name"
               disabled={loading}
-              className="w-full px-4 py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
               required
             />
           </div>
@@ -152,7 +157,7 @@ export function Contact() {
               }}
               placeholder="you@company.com"
               disabled={loading}
-              className="w-full px-4 py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
               required
             />
           </div>
@@ -168,9 +173,9 @@ export function Contact() {
                 setError(null)
               }}
               placeholder="Describe your AI project goals and timeline..."
-              rows={5}
+              rows={4}
               disabled={loading}
-              className="w-full px-4 py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all resize-none disabled:opacity-50"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all resize-none disabled:opacity-50 text-sm sm:text-base"
               required
             />
           </div>
@@ -180,7 +185,7 @@ export function Contact() {
             disabled={loading || submitted}
             whileHover={!loading && !submitted ? { scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.5)' } : {}}
             whileTap={!loading && !submitted ? { scale: 0.95 } : {}}
-            className="w-full btn-primary text-lg py-3 font-semibold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full btn-primary text-sm sm:text-base lg:text-lg py-3 font-semibold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading && (
               <span className="animate-spin">⚙️</span>
@@ -188,7 +193,7 @@ export function Contact() {
             {loading ? 'Sending...' : submitted ? '✓ Sent Successfully!' : 'Send Project Details'}
           </motion.button>
 
-          <p className="text-center text-xs text-slate-500">
+          <p className="text-center text-xs sm:text-sm text-slate-500">
             We'll respond within 24 hours. No spam, ever.
           </p>
         </motion.form>

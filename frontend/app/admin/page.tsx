@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 interface DashboardStats {
   total_contacts: number
   total_blogs: number
-  total_payments: number
   total_revenue: number
 }
 
@@ -14,8 +13,10 @@ interface RecentContact {
   id: string
   name: string
   email: string
+  project: string
+  phone: string | null
+  budget: string | null
   created_at: string
-  status: string
 }
 
 export default function AdminDashboard() {
@@ -28,7 +29,12 @@ export default function AdminDashboard() {
   const [contacts, setContacts] = useState<RecentContact[]>([])
   const [error, setError] = useState('')
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000'
+  const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000'
+  const trimmedApiUrl = rawApiUrl.replace(/\/+$/, '')
+  const API_URL = trimmedApiUrl === 'http://localhost:3000' ? 'http://localhost:10000' : trimmedApiUrl
+  if (rawApiUrl.includes('localhost:3000')) {
+    console.warn('NEXT_PUBLIC_API_URL is localhost:3000 in admin page; backend is expected at 10000.')
+  }
 
   // Handle Login
   const handleLogin = async (e: React.FormEvent) => {
@@ -44,7 +50,17 @@ export default function AdminDashboard() {
       })
 
       if (!response.ok) {
-        throw new Error('Invalid credentials')
+        let errorMessage = `Login failed (${response.status})`
+        try {
+          const errorData = await response.json()
+          if (errorData.detail) {
+            errorMessage += `: ${errorData.detail}`
+          }
+        } catch {
+          // If response isn't JSON, use status text
+          errorMessage += `: ${response.statusText || 'Unknown error'}`
+        }
+        throw new Error(errorMessage)
       }
 
       const data = await response.json()
@@ -54,7 +70,8 @@ export default function AdminDashboard() {
       // Fetch dashboard data
       await fetchDashboardData(data.access_token)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed')
+      const errorMessage = err instanceof Error ? err.message : 'Login failed'
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -71,6 +88,8 @@ export default function AdminDashboard() {
       if (statsResponse.ok) {
         const statsData = await statsResponse.json()
         setStats(statsData)
+      } else if (statsResponse.status === 401) {
+        throw new Error('Session expired. Please login again.')
       }
 
       // Fetch recent contacts
@@ -80,10 +99,20 @@ export default function AdminDashboard() {
 
       if (contactsResponse.ok) {
         const contactsData = await contactsResponse.json()
-        setContacts(contactsData.slice(0, 5))
+        setContacts(contactsData.messages) // Show all contacts, not just first 5
+      } else if (contactsResponse.status === 401) {
+        throw new Error('Session expired. Please login again.')
       }
     } catch (err) {
-      // Error handling for fetch failures
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load dashboard data'
+      setError(errorMessage)
+      // If token is invalid, log out
+      if (errorMessage.includes('expired') || errorMessage.includes('401')) {
+        setToken('')
+        setIsLoggedIn(false)
+        setStats(null)
+        setContacts([])
+      }
     }
   }
 
@@ -151,9 +180,11 @@ export default function AdminDashboard() {
             </button>
           </form>
 
-          <p className="text-gray-400 text-center mt-6 text-sm">
-            Demo credentials: admin / admin123
-          </p>
+          {process.env.NODE_ENV === 'development' && (
+            <p className="text-gray-400 text-center mt-6 text-sm">
+              Demo credentials: admin / admin123
+            </p>
+          )}
         </motion.div>
       </div>
     )
@@ -191,7 +222,6 @@ export default function AdminDashboard() {
             {[
               { label: 'Total Contacts', value: stats.total_contacts, icon: '📧' },
               { label: 'Total Blogs', value: stats.total_blogs, icon: '📝' },
-              { label: 'Total Payments', value: stats.total_payments, icon: '💳' },
               { label: 'Total Revenue', value: `NPR ${stats.total_revenue}`, icon: '💰' },
             ].map((stat, i) => (
               <motion.div
@@ -216,7 +246,7 @@ export default function AdminDashboard() {
           transition={{ delay: 0.4 }}
           className="bg-glass-dark border border-glass-light rounded-xl p-6 backdrop-blur-xl"
         >
-          <h2 className="text-2xl font-bold text-white mb-4">Recent Contacts</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">All Contacts</h2>
 
           {contacts.length > 0 ? (
             <div className="overflow-x-auto">
@@ -225,8 +255,10 @@ export default function AdminDashboard() {
                   <tr className="border-b border-glass-light">
                     <th className="text-cyan-400 font-semibold py-3">Name</th>
                     <th className="text-cyan-400 font-semibold py-3">Email</th>
+                    <th className="text-cyan-400 font-semibold py-3">Phone</th>
+                    <th className="text-cyan-400 font-semibold py-3">Budget</th>
+                    <th className="text-cyan-400 font-semibold py-3">Project</th>
                     <th className="text-cyan-400 font-semibold py-3">Date</th>
-                    <th className="text-cyan-400 font-semibold py-3">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -237,15 +269,21 @@ export default function AdminDashboard() {
                       animate={{ opacity: 1 }}
                       className="border-b border-glass-light/50 hover:bg-glass-light/20 transition"
                     >
-                      <td className="text-white py-3">{contact.name}</td>
-                      <td className="text-gray-300 py-3">{contact.email}</td>
+                      <td className="text-white py-3 font-medium">{contact.name}</td>
+                      <td className="text-gray-300 py-3">
+                        <a href={`mailto:${contact.email}`} className="hover:text-cyan-400 transition">
+                          {contact.email}
+                        </a>
+                      </td>
+                      <td className="text-gray-300 py-3">{contact.phone || 'N/A'}</td>
+                      <td className="text-gray-300 py-3">{contact.budget || 'N/A'}</td>
+                      <td className="text-gray-300 py-3 max-w-xs">
+                        <div className="truncate" title={contact.project}>
+                          {contact.project.length > 50 ? `${contact.project.substring(0, 50)}...` : contact.project}
+                        </div>
+                      </td>
                       <td className="text-gray-400 py-3">
                         {new Date(contact.created_at).toLocaleDateString()}
-                      </td>
-                      <td className="py-3">
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-cyan-400/20 text-cyan-300">
-                          {contact.status}
-                        </span>
                       </td>
                     </motion.tr>
                   ))}

@@ -6,10 +6,17 @@ Production-ready FastAPI backend with SQLAlchemy ORM and comprehensive API endpo
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import logging
 from contextlib import asynccontextmanager
 
-from .routers import auth, blog, payment, ai, contact, dashboard
+from .routers import auth, blog, ai, contact, dashboard
 from .database.connection import engine, Base
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 # Initialize database tables
 def init_db():
@@ -36,7 +43,7 @@ app = FastAPI(
 )
 
 # CORS Configuration
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001,http://localhost:10000,http://127.0.0.1:3000,http://127.0.0.1:3001").split(",")
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001,http://localhost:3006,http://localhost:3009,http://localhost:3010,http://localhost:4000,http://localhost:10000,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3006,http://127.0.0.1:3009,http://127.0.0.1:3010,http://127.0.0.1:4000").split(",")
 
 app.add_middleware(
     CORSMiddleware,
@@ -50,7 +57,6 @@ app.add_middleware(
 # Include routers
 app.include_router(auth.router)
 app.include_router(blog.router)
-app.include_router(payment.router)
 app.include_router(ai.router)
 app.include_router(contact.router)
 app.include_router(dashboard.router)

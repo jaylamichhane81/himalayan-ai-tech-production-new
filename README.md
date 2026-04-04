@@ -44,8 +44,7 @@ API Docs: http://localhost:10000/docs
 
 ### 🔧 Backend Features
 - 🔐 **JWT Authentication** - Secure token-based access
-- 💳 **Payment Processing** - Khalti & eSewa integration ready
-- 📧 **Contact Management** - Capture and track leads
+-  **Contact Management** - Capture and track leads
 - 📝 **Blog API** - Full CRUD with publish workflow
 - 🤖 **AI Chat API** - Session tracking and feedback
 - 📊 **Admin Dashboard** - Real-time statistics
@@ -94,11 +93,6 @@ BLOG
 AI CHAT
   POST   /ai/chat                 Get AI response
   GET    /ai/chat/history/{id}   Get chat history
-  
-PAYMENTS
-  POST   /payment/khalti/initiate Start payment
-  POST   /payment/esewa/initiate  Start payment
-  GET    /payment/stats           Payment metrics
   
 DASHBOARD
   GET    /dashboard/stats         Business metrics (admin)

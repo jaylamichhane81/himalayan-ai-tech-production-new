@@ -9,13 +9,13 @@ export function CTA() {
   }
 
   return (
-    <section className="section-container">
+    <section className="section-container px-4 sm:px-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative card-premium md:p-20 text-center overflow-hidden border-ai-cyan/30 hover:border-ai-cyan/60"
+        className="relative card-premium md:p-16 lg:p-20 text-center overflow-hidden border-ai-cyan/30 hover:border-ai-cyan/60"
       >
         {/* Background gradient animation */}
         <motion.div
@@ -24,9 +24,9 @@ export function CTA() {
           className="absolute inset-0 bg-gradient-to-r from-ai-cyan/10 to-ai-purple/10 opacity-30"
         />
 
-        <div className="relative z-10">
+        <div className="relative z-10 px-4 sm:px-6 md:px-8">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 text-gradient"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gradient"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
@@ -36,7 +36,7 @@ export function CTA() {
           </motion.h2>
 
           <motion.p
-            className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -46,7 +46,7 @@ export function CTA() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -56,18 +56,18 @@ export function CTA() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToContact}
-              className="btn-primary text-lg px-8 py-3"
+              className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
             >
               Book Free Consultation
             </motion.button>
 
             <motion.a
-              href="https://wa.me/977xxxxxxxxx"
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '977'}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-secondary text-lg"
+              className="btn-secondary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 w-full sm:w-auto text-center"
             >
               Chat on WhatsApp
             </motion.a>

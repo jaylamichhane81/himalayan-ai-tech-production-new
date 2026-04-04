@@ -13,6 +13,7 @@ import re
 from ..models import Blog, BlogCreate, BlogUpdate
 from ..database.connection import get_db
 from ..database.models import BlogPost as BlogPostModel
+from .auth import verify_token
 
 def slugify(text: str) -> str:
     """Convert text to URL-friendly slug"""
@@ -63,8 +64,8 @@ def get_blog(blog_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Blog)
-def create_blog(blog_data: BlogCreate, db: Session = Depends(get_db)):
-    """Create new blog post"""
+def create_blog(blog_data: BlogCreate, username: str = Depends(verify_token), db: Session = Depends(get_db)):
+    """Create new blog post (admin only)"""
     try:
         blog_id = str(uuid.uuid4())
         slug = blog_data.slug or slugify(blog_data.title)
@@ -105,8 +106,8 @@ def create_blog(blog_data: BlogCreate, db: Session = Depends(get_db)):
 
 
 @router.put("/{blog_id}", response_model=Blog)
-def update_blog(blog_id: str, blog_data: BlogUpdate, db: Session = Depends(get_db)):
-    """Update blog post"""
+def update_blog(blog_id: str, blog_data: BlogUpdate, username: str = Depends(verify_token), db: Session = Depends(get_db)):
+    """Update blog post (admin only)"""
     blog = db.query(BlogPostModel).filter(BlogPostModel.id == blog_id).first()
     if not blog:
         raise HTTPException(status_code=404, detail="Blog not found")
@@ -138,8 +139,8 @@ def update_blog(blog_id: str, blog_data: BlogUpdate, db: Session = Depends(get_d
 
 
 @router.delete("/{blog_id}")
-def delete_blog(blog_id: str, db: Session = Depends(get_db)):
-    """Delete blog post"""
+def delete_blog(blog_id: str, username: str = Depends(verify_token), db: Session = Depends(get_db)):
+    """Delete blog post (admin only)"""
     blog = db.query(BlogPostModel).filter(BlogPostModel.id == blog_id).first()
     if not blog:
         raise HTTPException(status_code=404, detail="Blog not found")

@@ -48,20 +48,6 @@ class ContactResponse(BaseModel):
     id: str
     created_at: datetime
 
-# Payment Models
-class KhaltiPayment(BaseModel):
-    amount: int = Field(..., gt=0)
-    customer_name: str
-    customer_email: EmailStr
-    description: str
-    return_url: str
-
-class PaymentResponse(BaseModel):
-    status: str
-    transaction_id: Optional[str] = None
-    message: str
-    payment_url: Optional[str] = None
-
 # AI Chat Models
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
@@ -77,4 +63,3 @@ class Stats(BaseModel):
     total_contacts: int
     total_projects: int
     total_blog_posts: int
-    total_payments: int

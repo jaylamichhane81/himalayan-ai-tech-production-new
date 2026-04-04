@@ -9,17 +9,50 @@ from datetime import datetime, timedelta
 import jwt
 import os
 from ..models import AdminLogin, AdminToken
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
 
 router = APIRouter(prefix="/auth")
 
 # Security configuration from environment variables
-SECRET_KEY = os.getenv("JWT_SECRET", "himalayan-secret-key-change-in-production")
+import secrets
+
+SECRET_KEY = os.getenv("JWT_SECRET")
+if not SECRET_KEY:
+    # Force explicit configuration in production
+    if os.getenv("ENVIRONMENT") == "production":
+        raise ValueError("JWT_SECRET environment variable is required in production")
+    # Use a random key for development
+    SECRET_KEY = secrets.token_urlsafe(32)
+    print("⚠️ WARNING: Using random JWT_SECRET for development. Set JWT_SECRET env var for persistence.")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Admin credentials from environment variables
-ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+ADMIN_USERNAME = os.getenv("admin")
+ADMIN_PASSWORD = os.getenv("admin012")
+
+# Treat placeholders as unset values to avoid locked-out development states
+def _normalize_credential(val: str | None) -> str | None:
+    if not val:
+        return None
+    trimmed = val.strip()
+    if trimmed == "" or trimmed.upper() in {"REPLACE_ME", "YOUR_PASSWORD", "YOUR_ADMIN_PASSWORD"}:
+        return None
+    return trimmed
+
+ADMIN_USERNAME = _normalize_credential(ADMIN_USERNAME)
+ADMIN_PASSWORD = _normalize_credential(ADMIN_PASSWORD)
+
+if not ADMIN_USERNAME or not ADMIN_PASSWORD:
+    if os.getenv("ENVIRONMENT") == "production":
+        raise ValueError("ADMIN_USERNAME and ADMIN_PASSWORD environment variables are required in production")
+    print("⚠️ WARNING: Using default admin credentials for development (admin/password123)")
+    ADMIN_USERNAME = "admin"
+    ADMIN_PASSWORD = "password123"
 
 security = HTTPBearer()
 

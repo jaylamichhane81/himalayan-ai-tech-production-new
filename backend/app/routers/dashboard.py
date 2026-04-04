@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 from .auth import verify_token
 from ..database.connection import get_db
-from ..database.models import Contact, BlogPost, Payment, ChatSession
+from ..database.models import Contact, BlogPost, ChatSession
 
 router = APIRouter(prefix="/dashboard")
 
@@ -26,11 +26,6 @@ def get_dashboard_stats(username: str = Depends(verify_token), db: Session = Dep
     total_blogs = db.query(BlogPost).count()
     featured_blogs = db.query(BlogPost).filter(BlogPost.featured == True).count()
     
-    # Get payment stats
-    completed_payments = db.query(Payment).filter(Payment.status == "completed").all()
-    completed_count = len(completed_payments)
-    total_revenue = sum(p.amount for p in completed_payments)
-    
     # Get recent contacts
     recent_contacts = db.query(Contact).order_by(Contact.created_at.desc()).limit(5).all()
     
@@ -38,9 +33,6 @@ def get_dashboard_stats(username: str = Depends(verify_token), db: Session = Dep
         "total_contacts": total_contacts,
         "total_blogs": total_blogs,
         "featured_blogs": featured_blogs,
-        "total_payments": completed_count,
-        "total_revenue": total_revenue,
-        "pending_payments": db.query(Payment).filter(Payment.status == "pending").count(),
         "recent_messages": [
             {
                 "id": c.id,
@@ -66,14 +58,6 @@ def get_overview(username: str = Depends(verify_token), db: Session = Depends(ge
     # Blog stats
     published_blogs = db.query(BlogPost).filter(BlogPost.featured == True).count()
     
-    # Payment stats
-    completed_payments = db.query(Payment).filter(Payment.status == "completed").all()
-    total_revenue = sum(p.amount for p in completed_payments)
-    payments_this_month = db.query(Payment).filter(
-        Payment.status == "completed",
-        Payment.created_at >= datetime.utcnow() - timedelta(days=30)
-    ).count()
-    
     # Chat stats
     total_chats = db.query(ChatSession).count()
     chats_this_month = db.query(ChatSession).filter(
@@ -90,11 +74,6 @@ def get_overview(username: str = Depends(verify_token), db: Session = Depends(ge
             "published_blogs": published_blogs,
             "total_blogs": db.query(BlogPost).count()
         },
-        "payments": {
-            "total_revenue": total_revenue,
-            "transactions": len(completed_payments),
-            "this_month": payments_this_month
-        },
         "engagement": {
             "total_chats": total_chats,
             "chats_this_month": chats_this_month
@@ -108,7 +87,6 @@ def get_recent_activity(username: str = Depends(verify_token), db: Session = Dep
     """Get recent activity across all modules"""
     
     recent_contacts = db.query(Contact).order_by(Contact.created_at.desc()).limit(5).all()
-    recent_payments = db.query(Payment).order_by(Payment.created_at.desc()).limit(5).all()
     recent_chats = db.query(ChatSession).order_by(ChatSession.created_at.desc()).limit(5).all()
     
     return {
@@ -120,16 +98,6 @@ def get_recent_activity(username: str = Depends(verify_token), db: Session = Dep
                 "created_at": c.created_at.isoformat()
             }
             for c in recent_contacts
-        ],
-        "payments": [
-            {
-                "type": "payment",
-                "customer": p.customer_name,
-                "amount": p.amount,
-                "status": p.status,
-                "created_at": p.created_at.isoformat()
-            }
-            for p in recent_payments
         ],
         "chats": [
             {

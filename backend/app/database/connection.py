@@ -4,16 +4,23 @@ Database Connection Configuration
 Uses SQLAlchemy ORM for PostgreSQL database management
 """
 
+import os
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from sqlalchemy.pool import StaticPool
+from dotenv import load_dotenv
 
-# Get database URL from environment or use SQLite for development
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "sqlite:///./test.db"  # SQLite for local development
-)
+# Load environment variables from .env file in the backend directory
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
+
+# Get database URL from environment
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is required")
+
+print(f"🔗 Connecting to database: {'PostgreSQL' if 'postgresql' in DATABASE_URL else 'SQLite'}")
 
 # Connection settings based on database type
 if "postgresql" in DATABASE_URL:
@@ -23,10 +30,12 @@ if "postgresql" in DATABASE_URL:
         pool_size=10,
         max_overflow=20,
         pool_pre_ping=True,  # Test connections before using
+        pool_recycle=300,  # Recycle connections after 5 minutes
         echo=os.getenv("SQL_ECHO", "false").lower() == "true"
     )
 else:
-    # SQLite development settings
+    # SQLite development settings (fallback)
+    print("⚠️ WARNING: Using SQLite database. Set DATABASE_URL for PostgreSQL.")
     engine = create_engine(
         DATABASE_URL,
         connect_args={"check_same_thread": False},

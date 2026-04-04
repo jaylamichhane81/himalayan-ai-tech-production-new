@@ -49,16 +49,16 @@ export function Hero() {
           </motion.div>
 
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 text-gradient leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 text-gradient leading-tight"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            Enterprise AI Solutions <br className="hidden md:block" />Built for Scale
+            Enterprise AI Solutions <br className="hidden sm:block" />Built for Scale
           </motion.h1>
 
           <motion.p
-            className="text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-slate-300 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -68,7 +68,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -77,7 +77,7 @@ export function Hero() {
               whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.5)' }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToContact}
-              className="btn-primary text-base px-8 py-3 font-semibold"
+              className="btn-primary text-sm sm:text-base px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
             >
               Schedule Free Audit →
             </motion.button>
@@ -86,7 +86,7 @@ export function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToContact()}
-              className="btn-secondary text-base px-8 py-3 font-semibold"
+              className="btn-secondary text-sm sm:text-base px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
             >
               See Case Studies
             </motion.button>
@@ -95,7 +95,7 @@ export function Hero() {
 
           {/* Trust Indicators */}
           <motion.div
-            className="mt-16 pt-16 border-t border-ai-cyan/10 grid grid-cols-3 gap-6 md:gap-12"
+            className="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-ai-cyan/10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -108,11 +108,11 @@ export function Hero() {
               <motion.div 
                 key={stat.label}
                 whileHover={{ y: -4 }}
-                className="p-4 md:p-6"
+                className="p-3 sm:p-4 md:p-6 text-center"
               >
-                <div className="text-3xl mb-2">{stat.icon}</div>
-                <div className="text-2xl md:text-3xl font-bold text-gradient">{stat.label}</div>
-                <div className="text-sm text-slate-400 mt-2">{stat.desc}</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl mb-2">{stat.icon}</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-slate-400 mt-2">{stat.desc}</div>
               </motion.div>
             ))}
           </motion.div>
