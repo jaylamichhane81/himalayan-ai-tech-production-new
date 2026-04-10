@@ -8,6 +8,12 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const scrollToSection = (id: string) => {
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      setMobileMenuOpen(false)
+      return
+    }
+
     const element = document.getElementById(id)
     element?.scrollIntoView({ behavior: 'smooth' })
     setMobileMenuOpen(false)
@@ -20,27 +26,27 @@ export function Header() {
       className="sticky top-0 z-50 glass-effect bg-midnight/70 w-full"
     >
       <div className="section-container py-4 flex justify-between items-center">
-        <motion.div 
+        <motion.button
           whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.98 }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer"
+          whileTap={{ scale: 0.95 }}
+          onClick={() => scrollToSection('top')}
+          className="flex items-center gap-3 sm:gap-4 cursor-pointer"
         >
-          <motion.div 
-            whileHover={{ y: -2 }}
-            className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 flex items-center justify-center rounded-xl bg-gradient-to-br from-ai-cyan/30 to-ai-purple/30 backdrop-blur-sm border-2 border-ai-cyan/40 hover:border-ai-cyan/70 transition-all shadow-2xl hover:shadow-3xl hover:shadow-ai-cyan/60 animate-float animate-pulse-glow"
-          >
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-ai-cyan/20 to-ai-purple/20 opacity-0 hover:opacity-100 transition-opacity blur-xl" />
-            <div className="absolute inset-2 rounded-lg bg-gradient-to-br from-ai-cyan/10 to-ai-purple/10 opacity-50" />
-            <Image 
-              src="/images/logo.png" 
-              alt="Himalayan AI" 
-              width={200} 
-              height={200} 
-              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 relative z-10 drop-shadow-2xl filter hover:drop-shadow-3xl transition-all image-glow-premium"
+          <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 flex-shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Himalayan AI Tech"
+              fill
+              className="object-contain"
+              priority
+              sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
             />
-          </motion.div>
-          <span className="text-base sm:text-lg md:text-xl font-bold text-gradient hover:text-ai-cyan transition-colors">Himalayan AI</span>
-        </motion.div>
+          </div>
+          <div className="hidden sm:block">
+            <div className="text-sm font-semibold uppercase tracking-widest text-ai-cyan leading-tight">Himalayan</div>
+            <div className="text-lg md:text-xl font-bold text-white">AI Tech</div>
+          </div>
+        </motion.button>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex gap-6 xl:gap-8">

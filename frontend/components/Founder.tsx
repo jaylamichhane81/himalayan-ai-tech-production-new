@@ -25,8 +25,7 @@ export function Founder() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gradient">Founder-Led Excellence & Accountability</h2>
 
           <p className="text-slate-300 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base md:text-lg">
-            I'm Jayram Lamichhane, building Himalayan AI with a commitment to engineering excellence. 
-            Every project gets founder-level attention and accountability.
+            I am Jayram Lamichhane, building Himalayan AI with a commitment to engineering excellence.
           </p>
 
           <p className="text-slate-400 mb-6 sm:mb-8 text-sm sm:text-base">

@@ -37,6 +37,10 @@ export function Contact() {
       setError('Project description is required')
       return false
     }
+    if (formData.project.trim().length < 10) {
+      setError('Project description must be at least 10 characters long.')
+      return false
+    }
     return true
   }
 
@@ -56,7 +60,11 @@ export function Contact() {
 
       setTimeout(() => setSubmitted(false), 5000)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to send message. Please try again.'
+      const errorMessage = err instanceof Error
+        ? err.message
+        : err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Failed to send message. Please try again.'
       setError(errorMessage)
     } finally {
       setLoading(false)
@@ -76,7 +84,7 @@ export function Contact() {
       >
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr]">
           <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">Let's Build Your AI Solution</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">Let us Build Your AI Solution</h2>
             <p className="text-slate-400 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg max-w-2xl">
               Reach out for a free demo, custom chatbot, AI website, or automation plan. We focus on fast delivery and real business value.
             </p>
@@ -128,7 +136,7 @@ export function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 bg-ai-cyan/10 border border-ai-cyan/30 rounded-lg text-ai-cyan text-sm"
               >
-                ✓ Perfect! We'll review your project and connect within 24 hours.
+                ✓ Perfect! We will review your project and connect within 24 hours.
               </motion.div>
             )}
 
@@ -223,7 +231,7 @@ export function Contact() {
             </motion.button>
 
             <p className="text-center text-xs sm:text-sm text-slate-500">
-              We'll respond within 24 hours. No spam, ever.
+              We will respond within 24 hours. No spam, ever.
             </p>
           </motion.form>
         </div>

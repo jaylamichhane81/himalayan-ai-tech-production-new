@@ -29,7 +29,7 @@ export function Chat() {
     setMessages((prev) => [...prev, message])
   }
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     setError(null)
 
@@ -62,7 +62,11 @@ export function Chat() {
         text: data.reply,
       })
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to reach the AI service.'
+      const errorMessage = err instanceof Error
+        ? err.message
+        : err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Failed to reach the AI service. Please try again.'
       setError(errorMessage)
     } finally {
       setLoading(false)

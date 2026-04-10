@@ -40,7 +40,7 @@ export function WhyUs() {
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4 text-gradient px-4">Why Choose Himalayan AI?</h2>
         <p className="text-center text-slate-400 max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 text-sm sm:text-base md:text-lg px-4">
-          We combine speed, expertise, and proven results. Here's what sets us apart.
+          We combine speed, expertise, and proven results. Here is what sets us apart.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-4 sm:px-0">
