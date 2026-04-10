@@ -2,39 +2,6 @@ from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from typing import Optional
 
-# Auth Models
-class AdminLogin(BaseModel):
-    username: str = Field(..., min_length=3)
-    password: str = Field(..., min_length=6)
-
-class AdminToken(BaseModel):
-    access_token: str
-    token_type: str
-    expires_in: int
-
-# Blog Models
-class BlogCreate(BaseModel):
-    title: str = Field(..., min_length=5, max_length=200)
-    content: str = Field(..., min_length=20)
-    slug: Optional[str] = None
-    featured: bool = False
-
-class BlogUpdate(BaseModel):
-    title: Optional[str] = None
-    content: Optional[str] = None
-    featured: Optional[bool] = None
-
-class Blog(BaseModel):
-    id: str
-    title: str
-    content: str
-    slug: str
-    featured: bool
-    created_at: datetime
-    updated_at: datetime
-    author: str
-
-# Contact Models (enhanced)
 class ContactRequest(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
@@ -48,7 +15,15 @@ class ContactResponse(BaseModel):
     id: str
     created_at: datetime
 
-# AI Chat Models
+class ContactListResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    project: str
+    phone: Optional[str] = None
+    budget: Optional[str] = None
+    created_at: datetime
+
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
     session_id: Optional[str] = None
@@ -56,10 +31,5 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
     session_id: str
+    message_id: str
     timestamp: datetime
-
-# Stats Models (for dashboard)
-class Stats(BaseModel):
-    total_contacts: int
-    total_projects: int
-    total_blog_posts: int

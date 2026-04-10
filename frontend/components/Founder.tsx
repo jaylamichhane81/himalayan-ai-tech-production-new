@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 export function Founder() {
   return (
@@ -59,20 +58,6 @@ export function Founder() {
             transition={{ delay: 0.6, duration: 0.8, type: 'spring', stiffness: 100 }}
             viewport={{ once: true }}
           >
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              whileHover={{ scale: 1.05 }}
-              className="relative group"
-            >
-              <Image
-                src="/images/stamp.png"
-                alt="Premium certified"
-                width={200}
-                height={200}
-                className="w-24 h-24 sm:w-28 sm:w-28 md:w-32 md:h-32 lg:w-40 lg:h-40 mx-auto opacity-90 hover:opacity-100 transition-all drop-shadow-lg hover:drop-shadow-xl filter relative z-10"
-              />
-            </motion.div>
           </motion.div>
         </div>
       </motion.div>

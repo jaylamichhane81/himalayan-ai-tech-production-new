@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Services } from '@/components/Services'
+import { Chat } from '@/components/Chat'
 import { WhyUs } from '@/components/WhyUs'
 import { Founder } from '@/components/Founder'
 import { CTA } from '@/components/CTA'
@@ -21,6 +22,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
+      <Chat />
       <WhyUs />
       <Founder />
       <CTA />

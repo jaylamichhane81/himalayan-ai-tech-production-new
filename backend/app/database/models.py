@@ -1,32 +1,11 @@
 """
 SQLAlchemy Database Models
-Defines the schema for all database tables
+Defines the schema for the minimal backend tables
 """
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, Float, ForeignKey, Index
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Text, DateTime, Index
 from sqlalchemy.sql import func
-from datetime import datetime
 from .connection import Base
-
-class BlogPost(Base):
-    """Blog post database model"""
-    __tablename__ = "blog_posts"
-
-    id = Column(String(36), primary_key=True, index=True)
-    title = Column(String(200), nullable=False, index=True)
-    content = Column(Text, nullable=False)
-    slug = Column(String(250), unique=True, index=True, nullable=False)
-    featured = Column(Boolean, default=False, index=True)
-    author = Column(String(100), nullable=False)
-    created_at = Column(DateTime, server_default=func.now(), nullable=False)
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
-
-    __table_args__ = (
-        Index('idx_blog_created', 'created_at'),
-        Index('idx_blog_featured', 'featured'),
-    )
-
 
 class Contact(Base):
     """Contact form submission database model"""
@@ -43,25 +22,6 @@ class Contact(Base):
     __table_args__ = (
         Index('idx_contact_created', 'created_at'),
         Index('idx_contact_email', 'email'),
-    )
-
-
-class ChatSession(Base):
-    """Chat session and message history database model"""
-    __tablename__ = "chat_sessions"
-
-    id = Column(String(36), primary_key=True, index=True)
-    session_id = Column(String(36), nullable=False, index=True)
-    user_message = Column(Text, nullable=False)
-    ai_reply = Column(Text, nullable=False)
-    user_info = Column(String(255), default="anonymous")
-    user_rating = Column(Integer, nullable=True)  # 1-5 rating
-    feedback_at = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, server_default=func.now(), nullable=False, index=True)
-
-    __table_args__ = (
-        Index('idx_chat_session', 'session_id'),
-        Index('idx_chat_created', 'created_at'),
     )
 
 

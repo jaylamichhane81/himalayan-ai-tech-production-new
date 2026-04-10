@@ -12,7 +12,10 @@ from sqlalchemy.pool import StaticPool
 from dotenv import load_dotenv
 
 # Load environment variables from .env file in the backend directory
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
+# load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
+
+# print(f"🔗 Loading .env from: {os.path.join(os.path.dirname(__file__), '..', '..', '.env')}")
+# print(f"🔗 GROQ_API_KEY loaded: {bool(os.getenv('GROQ_API_KEY'))}")
 
 # Get database URL from environment
 DATABASE_URL = os.getenv("DATABASE_URL")

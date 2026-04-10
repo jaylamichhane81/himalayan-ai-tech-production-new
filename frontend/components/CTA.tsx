@@ -3,10 +3,12 @@
 import { motion } from 'framer-motion'
 
 export function CTA() {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact')
+  const scrollToDemo = () => {
+    const element = document.getElementById('demo')
     element?.scrollIntoView({ behavior: 'smooth' })
   }
+
+  const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
 
   return (
     <section className="section-container px-4 sm:px-6">
@@ -17,7 +19,6 @@ export function CTA() {
         viewport={{ once: true }}
         className="relative card-premium md:p-16 lg:p-20 text-center overflow-hidden border-ai-cyan/30 hover:border-ai-cyan/60"
       >
-        {/* Background gradient animation */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
@@ -32,7 +33,7 @@ export function CTA() {
             transition={{ delay: 0.2, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Ready to Transform Your Business?
+            Ready for a free demo?
           </motion.h2>
 
           <motion.p
@@ -42,7 +43,7 @@ export function CTA() {
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Get a free AI audit tailored to your business. Discover opportunities, understand costs, and launch faster.
+            Test our demo chatbot and start a conversation with AI today. Fast, friendly, and built for real businesses.
           </motion.p>
 
           <motion.div
@@ -55,14 +56,14 @@ export function CTA() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={scrollToContact}
+              onClick={scrollToDemo}
               className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
             >
-              Book Free Consultation
+              Start Free Demo
             </motion.button>
 
             <motion.a
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '977'}`}
+              href={`https://wa.me/${phoneNumber}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

@@ -1,6 +1,6 @@
 """
 Himalayan AI Tech Pro - Main Application Entry Point
-Production-ready FastAPI backend with SQLAlchemy ORM and comprehensive API endpoints
+Simple backend for AI chat and contact lead capture
 """
 
 from fastapi import FastAPI
@@ -8,8 +8,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import logging
 from contextlib import asynccontextmanager
+from dotenv import load_dotenv
 
-from .routers import auth, blog, ai, contact, dashboard
+# Load environment variables
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+
+from .routers import ai, contact
 from .database.connection import engine, Base
 
 # Configure logging
@@ -20,30 +24,31 @@ logging.basicConfig(
 
 # Initialize database tables
 def init_db():
-    """Create all database tables"""
+    """Create all required database tables"""
     Base.metadata.create_all(bind=engine)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan context manager"""
-    # Startup: Initialize database
     init_db()
-    print("✓ Database initialized")
+    logging.info("✓ Database initialized")
     yield
-    # Shutdown: Cleanup if needed
-    print("✓ Application shutdown")
+    logging.info("✓ Application shutdown")
 
 
 app = FastAPI(
     title="Himalayan AI Tech Pro API",
-    description="Production-ready API for custom AI applications and business automation",
+    description="Fast API for AI chat and contact capture",
     version="1.0.0",
     lifespan=lifespan
 )
 
 # CORS Configuration
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001,http://localhost:3006,http://localhost:3009,http://localhost:3010,http://localhost:4000,http://localhost:10000,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3006,http://127.0.0.1:3009,http://127.0.0.1:3010,http://127.0.0.1:4000").split(",")
+allowed_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:3001,http://localhost:10000,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:10000"
+).split(",")
 
 app.add_middleware(
     CORSMiddleware,
@@ -54,19 +59,16 @@ app.add_middleware(
     allow_origin_regex="http?://.*:.*"
 )
 
-# Include routers
-app.include_router(auth.router)
-app.include_router(blog.router)
+# Include only MVP routers
 app.include_router(ai.router)
 app.include_router(contact.router)
-app.include_router(dashboard.router)
 
 
 @app.get("/")
 def home():
     """Root endpoint - health check"""
     return {
-        "status": "🚀 Himalayan AI Tech Pro Backend Running",
+        "status": "✅ Himalayan AI Tech Backend Running",
         "version": "1.0.0",
         "docs": "/docs",
         "environment": os.getenv("ENVIRONMENT", "development")

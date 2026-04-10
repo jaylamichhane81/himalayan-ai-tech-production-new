@@ -4,22 +4,28 @@ import { motion } from 'framer-motion'
 
 const services = [
   {
-    icon: '🧠',
-    title: 'Custom AI Applications',
-    description: 'Enterprise-grade web apps with LLM integration, RAG systems, and real-time intelligence. Built for scalability and performance.',
-    features: ['LLM Integration', 'Real-time Processing', '24/7 Support'],
+    icon: '�',
+    title: 'AI Chatbot Development',
+    description: 'Customer support and sales chatbots that guide visitors, answer questions, and capture leads.',
+    features: ['Smart conversation flows', 'Lead capture', 'Fast integration'],
+  },
+  {
+    icon: '🌐',
+    title: 'AI Website Integration',
+    description: 'Modern websites with AI search, personalization, and chat-enabled user experiences.',
+    features: ['Smart website widgets', 'AI-driven content', 'SEO-ready pages'],
   },
   {
     icon: '⚙️',
-    title: 'Intelligent Automation',
-    description: 'Visual workflow automation with n8n. Eliminate manual tasks, reduce costs, and scale operations instantly.',
-    features: ['Process Automation', 'API Integration', 'Data Orchestration'],
+    title: 'Business Automation',
+    description: 'Automate repeat work, sync systems, and reduce manual tasks using intelligent workflows.',
+    features: ['Process automation', 'API orchestration', 'task triggers'],
   },
   {
-    icon: '🤖',
-    title: 'Autonomous AI Agents',
-    description: 'Intelligent agents that reason, learn, and execute complex business logic autonomously. Maximized efficiency.',
-    features: ['Autonomous Tasks', 'Intelligent Reasoning', 'Context Awareness'],
+    icon: '🧠',
+    title: 'Custom AI Solutions',
+    description: 'Tailored AI tools for reporting, operations, and customer experience specific to your business.',
+    features: ['Custom tool design', 'Data-driven systems', 'Scalable deployment'],
   },
 ]
 
@@ -34,16 +40,16 @@ export function Services() {
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4 text-gradient px-4">Services Built for Business Growth</h2>
         <p className="text-center text-slate-400 max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 text-sm sm:text-base md:text-lg px-4">
-          Three proven AI solutions to transform your operations, reduce costs, and stay competitive.
+          Four core AI services designed to increase leads, simplify operations, and deliver fast results.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-0">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: true }}
               whileHover={{ y: -8, boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)' }}
               className="card-premium group cursor-pointer hover:border-ai-cyan/50 p-4 sm:p-6"
