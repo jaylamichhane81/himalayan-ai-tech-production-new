@@ -1,8 +1,8 @@
-fastapi==0.115.0
+fastapi==0.110.0
 uvicorn[standard]==0.30.0
 sqlalchemy==2.0.46
 psycopg[binary]>=3.1.0
 python-dotenv==1.0.0
-pydantic[email]==2.8.2
+pydantic[email]==2.7.4
 httpx==0.25.2
 sendgrid==6.10.0
