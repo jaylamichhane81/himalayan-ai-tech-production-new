@@ -1,10 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@himalayan_ai_backend_url"
-  },
-  "envPrefix": "NEXT_PUBLIC_",
   "functions": {
     "pages/api/**": {
       "maxDuration": 10
@@ -24,7 +20,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "${NEXT_PUBLIC_API_URL}/api/:path*"
+      "destination": "https://himalayan-ai-tech-pro.onrender.com/api/:path*"
     }
   ]
 }
