@@ -1,12 +1,11 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-export const apiRequest = async (endpoint: string, options?: RequestInit) => {
-  const res = await fetch(`${API_URL}${endpoint}`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    ...options,
-  });
+export const api = {
+  chat: `${API_BASE_URL}/api/chat`,
+  contact: `${API_BASE_URL}/api/contact`,
+}
 
-  return res.json();
-};
+export const endpoints = {
+  chat: "/api/chat",
+  contact: "/api/contact",
+}
