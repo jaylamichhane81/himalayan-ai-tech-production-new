@@ -10,7 +10,7 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: ALLOWED_ORIGINS
-        value: https://himalayan-ai-tech-pro.vercel.app,https://your-render-frontend-url.onrender.com
+        value: https://himalayan-ai-tech-pro.vercel.app,https://himalayan-ai-frontend.onrender.com
       - key: DATABASE_URL
         sync: false # Set in Render dashboard - use PostgreSQL for production
       - key: JWT_SECRET

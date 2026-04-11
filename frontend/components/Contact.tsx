@@ -23,6 +23,26 @@ export function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [healthCheckLoading, setHealthCheckLoading] = useState(false)
+  const [healthStatus, setHealthStatus] = useState<string | null>(null)
+
+  const checkHealth = async () => {
+    setHealthCheckLoading(true)
+    setHealthStatus(null)
+    try {
+      const result = await api.get<{ status: string }>(endpoints.health)
+      setHealthStatus('✓ Connection successful! API is responding.')
+    } catch (err) {
+      const errorMessage = err instanceof Error
+        ? err.message
+        : err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Health check failed. Please try again.'
+      setHealthStatus(`✗ Connection failed: ${errorMessage}`)
+    } finally {
+      setHealthCheckLoading(false)
+    }
+  }
 
   const validateForm = (): boolean => {
     if (!formData.name.trim()) {
@@ -139,6 +159,29 @@ export function Contact() {
                 ✓ Perfect! We will review your project and connect within 24 hours.
               </motion.div>
             )}
+
+            {healthStatus && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`p-3 rounded-lg text-xs border ${
+                  healthStatus.startsWith('✓')
+                    ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                    : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'
+                }`}
+              >
+                {healthStatus}
+              </motion.div>
+            )}
+
+            <button
+              type="button"
+              onClick={checkHealth}
+              disabled={healthCheckLoading}
+              className="w-full px-3 py-2 text-xs bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 rounded-lg text-slate-400 hover:text-slate-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {healthCheckLoading ? '🔄 Testing connection...' : '🔗 Test API Connection'}
+            </button>
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Your Name *</label>
