@@ -1,22 +1,10 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
-
-export const api = {
-  chat: `${API_BASE_URL}/api/chat`,
-  contact: `${API_BASE_URL}/api/contact`,
-}
-
-export const endpoints = {
-  chat: "/api/chat",
-  contact: "/api/contact",
-}
-export interface ChatResponse {
-  message: string
-  success: boolean
-}
 import axios from "axios"
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 })
 
 export default api
