@@ -9,3 +9,7 @@ export const endpoints = {
   chat: "/api/chat",
   contact: "/api/contact",
 }
+export interface ChatResponse {
+  message: string
+  success: boolean
+}
