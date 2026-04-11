@@ -10,11 +10,11 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: ALLOWED_ORIGINS
-        value: https://himalayan-ai-tech-pro.vercel.app,https://himalayan-ai-frontend.onrender.com
+        value: https://himalayan-ai-tech-pro.vercel.app
       - key: DATABASE_URL
-        sync: false # Set in Render dashboard - use PostgreSQL for production
+        sync: false # Set in Render dashboard
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
       - key: ADMIN_USERNAME
         sync: false
       - key: ADMIN_PASSWORD
@@ -24,23 +24,6 @@ services:
       - key: SENDGRID_API_KEY
         sync: false
       - key: FROM_EMAIL
-        value: noreply@himalayanaitech.com
+        value: himalayanaitech@gmail.com
       - key: ADMIN_EMAIL
         sync: false
-
-  # Frontend Web Service
-  - type: web
-    name: himalayan-ai-frontend
-    env: node
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NEXT_PUBLIC_API_URL
-        value: https://himalayan-ai-backend.onrender.com
-      - key: NEXT_PUBLIC_ENV
-        value: production
-      - key: NEXT_PUBLIC_WHATSAPP_NUMBER
-        value: "9779849745629"
-      - key: NEXT_PUBLIC_SITE_URL
-        value: https://himalayan-ai-tech-pro.vercel.app
