@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
-import { api, endpoints, ChatResponse } from '../lib/api'
+import { api, endpoints, ChatResponse } from '@/lib/api'
 
 interface ChatMessage {
   id: string
