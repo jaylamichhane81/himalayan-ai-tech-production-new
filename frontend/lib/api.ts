@@ -9,7 +9,7 @@ const api = axios.create({
 
 export const endpoints = {
   health: "/health",
-  chat: "/chat",
+  chat: "/ai/chat",
   contact: "/contact",
 }
 
