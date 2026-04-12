@@ -10,13 +10,12 @@ interface ChatMessage {
   text: string
 }
 
-const data = await api.post<ChatResponse>(
-  endpoints.chat,
-  {
-    message: trimmed,
-    session_id: sessionId,
-  }
-)
+const trimmed = input.trim()
+
+const data = await api.post(endpoints.chat, {
+  message: trimmed,
+  session_id: sessionId,
+})
 const initialMessages: ChatMessage[] = [
   {
     id: 'intro',
