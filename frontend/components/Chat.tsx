@@ -11,6 +11,7 @@ interface ChatMessage {
 }
 
 const trimmed = input.trim()
+const [input, setInput] = useState("")
 
 const data = await api.post(endpoints.chat, {
   message: trimmed,
