@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('path')
 
 const nextConfig = {
@@ -21,8 +20,6 @@ const nextConfig = {
     config.resolve.alias['@'] = path.resolve(__dirname)
     return config
   },
-  redirects: async () => [],
-  rewrites: async () => [],
 }
 
 module.exports = nextConfig
