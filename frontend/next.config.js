@@ -26,3 +26,10 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: false,   // 🔥 ADD THIS
+}
+
+module.exports = nextConfig
