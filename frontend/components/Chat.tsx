@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
-import { api, endpoints, ChatResponse } from '../lib/api'
+import { api, endpoints, ChatResponse } from '@/lib/api'
 
 interface ChatMessage {
   id: string
@@ -10,6 +10,13 @@ interface ChatMessage {
   text: string
 }
 
+const data = await api.post<ChatResponse>(
+  endpoints.chat,
+  {
+    message: trimmed,
+    session_id: sessionId,
+  }
+)
 const initialMessages: ChatMessage[] = [
   {
     id: 'intro',

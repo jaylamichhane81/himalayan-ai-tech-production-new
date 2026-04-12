@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
-import { api, endpoints, ContactResponse } from '../lib/api'
+import { api, endpoints, ContactResponse } from '@/lib/api'
 
 interface FormState {
   name: string
