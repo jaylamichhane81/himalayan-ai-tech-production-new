@@ -1,15 +1,7 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@himalayan_ai_backend_url"
-  },
-  "envPrefix": "NEXT_PUBLIC_",
-  "functions": {
-    "pages/api/**": {
-      "maxDuration": 10
-    }
-  },
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/images/(.*)",
@@ -19,12 +11,6 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "${NEXT_PUBLIC_API_URL}/api/:path*"
     }
   ]
 }

@@ -5,17 +5,14 @@ Uses SQLAlchemy ORM for PostgreSQL database management
 """
 
 import os
+from urllib.parse import urlparse
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
-import os
 from sqlalchemy.pool import StaticPool
 from dotenv import load_dotenv
 
 # Load environment variables from .env file in the backend directory
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
-
-# print(f"🔗 Loading .env from: {os.path.join(os.path.dirname(__file__), '..', '..', '.env')}")
-# print(f"🔗 GROQ_API_KEY loaded: {bool(os.getenv('GROQ_API_KEY'))}")
 
 # Get database URL from environment
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -23,7 +20,16 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable is required")
 
-print(f"🔗 Connecting to database: {'PostgreSQL' if 'postgresql' in DATABASE_URL else 'SQLite'}")
+if "postgresql" in DATABASE_URL:
+    parsed = urlparse(DATABASE_URL)
+    if parsed.hostname and parsed.hostname.startswith("dpg-") and "." not in parsed.hostname:
+        raise ValueError(
+            "DATABASE_URL host appears incomplete. "
+            "Use the full Render hostname, e.g. dpg-xxxx.postgres-render.com. "
+            f"Current host: {parsed.hostname}"
+        )
+
+print(f"Connecting to database: {'PostgreSQL' if 'postgresql' in DATABASE_URL else 'SQLite'}")
 
 # Connection settings based on database type
 if "postgresql" in DATABASE_URL:
@@ -38,7 +44,7 @@ if "postgresql" in DATABASE_URL:
     )
 else:
     # SQLite development settings (fallback)
-    print("⚠️ WARNING: Using SQLite database. Set DATABASE_URL for PostgreSQL.")
+    print("WARNING: Using SQLite database. Set DATABASE_URL for PostgreSQL.")
     engine = create_engine(
         DATABASE_URL,
         connect_args={"check_same_thread": False},
