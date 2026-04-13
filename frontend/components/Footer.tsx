@@ -17,20 +17,19 @@ export function Footer() {
           <p className="text-slate-400 text-sm leading-relaxed">
             Kathmandu, Nepal
             <br />
-            Putalisadak, Kathmandu
+            Gokarneshwor 05
             <br />
-            Free demo and business solutions for growing teams.
+            44600
           </p>
         </div>
 
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Contact</h3>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Email: <a href="mailto:hello@himalayanaitech.com" className="text-ai-cyan hover:text-white">hello@himalayanaitech.com</a>
+            Email: <a href="himalayanaitech@gmail.com" className="text-ai-cyan hover:text-white">himalayanaitech@gmail.com</a>
             <br />
-            Support: <a href="mailto:support@himalayanaitech.com" className="text-ai-cyan hover:text-white">support@himalayanaitech.com</a>
             <br />
-            WhatsApp: <a href="https://wa.me/9779841000000" target="_blank" rel="noreferrer" className="text-ai-cyan hover:text-white">+977 98410 00000</a>
+            WhatsApp: <a href="https://wa.me/9779849745629" target="_blank" rel="noreferrer" className="text-ai-cyan hover:text-white">+977 9849745629</a>
           </p>
         </div>
 

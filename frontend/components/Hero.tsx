@@ -39,17 +39,6 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.div
-            className="mb-6 inline-block"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-          >
-            <div className="px-4 py-2 bg-gradient-to-r from-ai-cyan/10 to-ai-purple/10 rounded-full border border-ai-cyan/30 text-sm text-ai-cyan font-semibold">
-              ✓ Trusted by businesses in Kathmandu and Nepal
-            </div>
-          </motion.div>
-
           <motion.h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 text-gradient leading-tight"
             initial={{ opacity: 0 }}

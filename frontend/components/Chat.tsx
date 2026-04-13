@@ -42,7 +42,7 @@ export default function Chat() {
   }
 
   return (
-    <section id="chat" className="section-container py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+    <section id="demo" className="section-container py-12 sm:py-16 md:py-20 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <div className="rounded-[2rem] border border-slate-800/80 bg-slate-950/90 p-5 sm:p-8 shadow-2xl shadow-slate-950/40">
           <div className="mb-6">
