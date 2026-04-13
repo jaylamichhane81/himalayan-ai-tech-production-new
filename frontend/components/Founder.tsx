@@ -11,13 +11,13 @@ export function Founder() {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className="card-premium md:p-12 lg:p-16 text-center max-w-4xl mx-auto border-ai-cyan/20 hover:border-ai-cyan/50 px-4 sm:px-6">
+        <div className="card-premium md:p-12 lg:p-16 text-center max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-ai-cyan to-ai-purple flex items-center justify-center border-2 border-ai-cyan/30 glow-cyan overflow-hidden"
+            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-ai-cyan to-ai-purple flex items-center justify-center glow-cyan overflow-hidden"
           >
             <img 
               src="/images/pic.jpg" 
@@ -37,7 +37,7 @@ export function Founder() {
           </p>
 
           <motion.div
-            className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-ai-cyan/20 flex justify-center"
+            className="mt-8 sm:mt-12 pt-6 sm:pt-8 flex justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6, duration: 0.8, type: 'spring', stiffness: 100 }}

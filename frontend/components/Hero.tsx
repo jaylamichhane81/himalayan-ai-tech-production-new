@@ -82,28 +82,6 @@ export function Hero() {
             </motion.button>
           </motion.div>
 
-          <motion.div
-            className="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-ai-cyan/10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-4 sm:px-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            {[
-              { label: 'Rapid MVP', desc: 'Launch in days', icon: '⚡' },
-              { label: 'Live Demo', desc: 'Built into the landing page', icon: '🤖' },
-              { label: 'Local support', desc: 'Kathmandu-based team', icon: '🏔️' },
-            ].map((stat) => (
-              <motion.div
-                key={stat.label}
-                whileHover={{ y: -4 }}
-                className="p-3 sm:p-4 md:p-6 text-center"
-              >
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-2">{stat.icon}</div>
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient">{stat.label}</div>
-                <div className="text-xs sm:text-sm text-slate-400 mt-2">{stat.desc}</div>
-              </motion.div>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
     </section>
