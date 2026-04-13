@@ -35,15 +35,6 @@ export function Founder() {
           <p className="text-slate-400 mb-6 sm:mb-8 text-sm sm:text-base">
             No layers. No delays. Direct access to expertise. We deliver what we promise.
           </p>
-
-          <motion.div
-            className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-ai-cyan/20 flex justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.8, type: 'spring', stiffness: 100 }}
-            viewport={{ once: true }}
-          >
-          </motion.div>
         </div>
       </motion.div>
     </section>
