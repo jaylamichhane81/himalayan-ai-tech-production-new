@@ -49,6 +49,7 @@ app.add_middleware(
   CORSMiddleware,
   allow_origins=[
     "http://localhost:3000",
+    "https://www.himalayanaitech.com.np",
     "https://himalayan-ai-tech-pro-a1wx.vercel.app"
   ],
   allow_credentials=True,

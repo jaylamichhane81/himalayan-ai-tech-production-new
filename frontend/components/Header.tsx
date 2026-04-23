@@ -25,7 +25,7 @@ export function Header() {
       animate={{ y: 0 }}
       className="sticky top-0 z-50 glass-effect bg-midnight/70 w-full"
     >
-      <div className="section-container py-3 sm:py-4 flex justify-between items-center">
+      <div className="section-container py-4 sm:py-5 flex justify-between items-center">
         <motion.button
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
@@ -95,7 +95,7 @@ export function Header() {
         transition={{ duration: 0.3 }}
         className="lg:hidden overflow-hidden bg-midnight-light/50 glass-effect"
       >
-        <div className="section-container py-3 sm:py-4 flex flex-col gap-4 sm:gap-5">
+        <div className="section-container py-5 sm:py-6 flex flex-col gap-2 sm:gap-4">
           {[
             { label: 'Services', id: 'services' },
             { label: 'Founder', id: 'founder' },
@@ -105,7 +105,7 @@ export function Header() {
               key={item.id}
               whileHover={{ x: 4 }}
               onClick={() => scrollToSection(item.id)}
-              className="text-slate-300 hover:text-ai-cyan transition-colors text-sm sm:text-base font-medium text-left py-3 px-3"
+              className="text-slate-300 hover:text-ai-cyan transition-colors text-sm sm:text-base font-medium text-left py-4 px-4 sm:py-3 sm:px-3"
             >
               {item.label}
             </motion.button>
@@ -113,7 +113,7 @@ export function Header() {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => scrollToSection('contact')}
-            className="btn-primary w-full text-sm sm:text-base py-3 font-semibold mt-2"
+            className="btn-primary w-full text-sm sm:text-base py-3 font-semibold mt-4 sm:mt-2"
           >
             Book Consultation
           </motion.button>

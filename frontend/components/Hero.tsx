@@ -14,7 +14,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden py-8 sm:py-12 md:py-16">
       <div className="absolute inset-0 bg-gradient-ai opacity-50" />
       <motion.div
         animate={{
@@ -33,7 +33,7 @@ export function Hero() {
         className="absolute bottom-12 left-5 sm:bottom-20 sm:left-10 w-48 h-48 sm:w-80 sm:h-80 bg-ai-purple/20 rounded-full blur-3xl opacity-20"
       />
 
-      <div className="relative z-10 section-container text-center">
+      <div className="relative z-10 section-container text-center px-4 sm:px-6 md:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            className="text-base sm:text-xl md:text-2xl text-slate-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
+            className="text-base sm:text-xl md:text-2xl text-slate-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -69,7 +69,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
