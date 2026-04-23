@@ -9,6 +9,7 @@ import uuid
 import os
 import httpx
 import logging
+import random
 
 from ..models import ChatRequest, ChatResponse
 
@@ -51,7 +52,14 @@ Be empathetic, efficient, and solution-oriented. Escalate to human agents if nee
 async def get_ai_response(message: str, bot_type: str = "support") -> str:
     """Call the LLM provider and return a single assistant reply."""
     if not LLM_API_KEY:
-        raise HTTPException(status_code=500, detail="AI service not configured")
+        # Demo mode: return a helpful response without requiring API key
+        demo_responses = [
+            "Hello! I'm the Himalayan AI Tech Pro assistant. I'm here to help you learn about our AI-powered solutions for business automation, data analytics, and intelligent systems. What would you like to know?",
+            "Thank you for your interest in Himalayan AI Tech Pro! We specialize in cutting-edge AI technologies including machine learning, natural language processing, and computer vision. How can I assist you today?",
+            "That's a great question! At Himalayan AI Tech Pro, we focus on delivering scalable AI solutions that drive business value. Our expertise includes custom AI model development, API integrations, and automated workflows. What specific area interests you?",
+            "I'm excited to help you explore our AI capabilities! We offer comprehensive services from initial consultation to full implementation. Whether you're looking to automate processes, gain insights from data, or build intelligent applications, we're here to guide you through the journey."
+        ]
+        return random.choice(demo_responses)
 
     system_prompt = BOT_PROMPTS.get(bot_type, BOT_PROMPTS["support"])
 

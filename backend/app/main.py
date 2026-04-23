@@ -45,19 +45,16 @@ app = FastAPI(
 )
 
 # CORS Configuration
-allowed_origins = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://localhost:3001,http://localhost:10000,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:10000"
-).split(",")
-
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+  CORSMiddleware,
+  allow_origins=[
+    "http://localhost:3000",
+    "https://himalayan-ai-tech-pro-a1wx.vercel.app"
+  ],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
 )
-
 # Include only MVP routers
 app.include_router(ai.router)
 app.include_router(contact.router)
