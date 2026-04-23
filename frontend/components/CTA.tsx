@@ -4,25 +4,26 @@ import { motion } from 'framer-motion'
 
 export function CTA() {
   const scrollToDemo = () => {
-    const element = document.getElementById('demo')
+    const element = document.getElementById('chat')
     element?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
 
   return (
-    <section className="section-container px-4 sm:px-6">
+    <section className="py-8 sm:py-10 md:py-12">
+      <div className="section-container px-4 sm:px-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative card-premium md:p-16 lg:p-20 text-center overflow-hidden border-ai-cyan/30 hover:border-ai-cyan/60"
+        className="relative card-premium p-6 sm:p-8 md:p-10 text-center overflow-hidden border-ai-cyan/30 hover:border-ai-cyan/60"
       >
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-0 bg-gradient-to-r from-ai-cyan/10 to-ai-purple/10 opacity-30"
+          className="absolute inset-0 bg-linear-to-r from-ai-cyan/10 to-ai-purple/10 opacity-30"
         />
 
         <div className="relative z-10 px-4 sm:px-6 md:px-8">
@@ -33,17 +34,17 @@ export function CTA() {
             transition={{ delay: 0.2, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Ready for a free demo?
+            Start automating your business today with AI
           </motion.h2>
 
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Test our demo chatbot and start a conversation with AI today. Fast, friendly, and built for real businesses.
+            Join hundreds of businesses already using AI chatbots to convert more customers and save time.
           </motion.p>
 
           <motion.div
@@ -54,27 +55,29 @@ export function CTA() {
             viewport={{ once: true }}
           >
             <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.5)' }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const element = document.getElementById('contact')
+                element?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
+            >
+              Book Demo
+            </motion.button>
+
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToDemo}
-              className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
-            >
-              Start Free Demo
-            </motion.button>
-
-            <motion.a
-              href={`https://wa.me/${phoneNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               className="btn-secondary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 w-full sm:w-auto text-center"
             >
-              Chat on WhatsApp
-            </motion.a>
+              Try Free Chatbot
+            </motion.button>
           </motion.div>
         </div>
       </motion.div>
+      </div>
     </section>
   )
 }

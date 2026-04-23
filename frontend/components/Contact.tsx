@@ -94,7 +94,8 @@ export function Contact() {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
 
   return (
-    <section id="contact" className="section-container py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+    <section id="contact" className="py-8 sm:py-10 md:py-12 px-4 sm:px-6">
+      <div className="section-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -105,11 +106,11 @@ export function Contact() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr]">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">Let us Build Your AI Solution</h2>
-            <p className="text-slate-400 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg max-w-2xl">
+            <p className="text-slate-400 mb-6 sm:mb-8 md:mb-10 text-sm sm:text-base md:text-lg max-w-2xl">
               Reach out for a free demo, custom chatbot, AI website, or automation plan. We focus on fast delivery and real business value.
             </p>
 
-            <div className="rounded-3xl border border-ai-cyan/15 bg-slate-950/80 p-6 space-y-4 shadow-xl shadow-ai-cyan/10">
+            <div className="rounded-3xl border border-ai-cyan/15 bg-slate-950/80 p-4 sm:p-5 space-y-3 shadow-xl shadow-ai-cyan/10">
               <div>
                 <p className="text-sm text-slate-400 uppercase tracking-[0.2em] mb-2">Contact</p>
                 <p className="text-white font-semibold">WhatsApp</p>
@@ -134,7 +135,7 @@ export function Contact() {
 
           <motion.form
             onSubmit={handleSubmit}
-            className="card-premium space-y-4 sm:space-y-6 border-ai-cyan/20 hover:border-ai-cyan/50 p-4 sm:p-6 md:p-8"
+            className="card-premium space-y-4 sm:space-y-5 border-ai-cyan/20 hover:border-ai-cyan/50 p-4 sm:p-5 md:p-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -279,6 +280,7 @@ export function Contact() {
           </motion.form>
         </div>
       </motion.div>
+      </div>
     </section>
   )
 }

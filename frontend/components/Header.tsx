@@ -25,14 +25,14 @@ export function Header() {
       animate={{ y: 0 }}
       className="sticky top-0 z-50 glass-effect bg-midnight/70 w-full"
     >
-      <div className="section-container py-4 flex justify-between items-center">
+      <div className="section-container py-3 sm:py-4 flex justify-between items-center">
         <motion.button
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => scrollToSection('top')}
           className="flex items-center gap-3 sm:gap-4 cursor-pointer"
         >
-          <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 flex-shrink-0">
+          <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0">
             <Image
               src="/images/logo.png"
               alt="Himalayan AI Tech"
@@ -49,10 +49,9 @@ export function Header() {
         </motion.button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex gap-6 xl:gap-8">
+        <nav className="hidden lg:flex gap-12 xl:gap-16">
           {[
             { label: 'Services', id: 'services' },
-            { label: 'Why Us', id: 'why-us' },
             { label: 'Founder', id: 'founder' },
             { label: 'Contact', id: 'contact' },
           ].map((item) => (
@@ -96,10 +95,9 @@ export function Header() {
         transition={{ duration: 0.3 }}
         className="lg:hidden overflow-hidden bg-midnight-light/50 glass-effect"
       >
-        <div className="section-container py-4 sm:py-6 flex flex-col gap-3 sm:gap-4">
+        <div className="section-container py-3 sm:py-4 flex flex-col gap-4 sm:gap-5">
           {[
             { label: 'Services', id: 'services' },
-            { label: 'Why Us', id: 'why-us' },
             { label: 'Founder', id: 'founder' },
             { label: 'Contact', id: 'contact' },
           ].map((item) => (
@@ -107,7 +105,7 @@ export function Header() {
               key={item.id}
               whileHover={{ x: 4 }}
               onClick={() => scrollToSection(item.id)}
-              className="text-slate-300 hover:text-ai-cyan transition-colors text-sm sm:text-base font-medium text-left py-2 px-2"
+              className="text-slate-300 hover:text-ai-cyan transition-colors text-sm sm:text-base font-medium text-left py-3 px-3"
             >
               {item.label}
             </motion.button>

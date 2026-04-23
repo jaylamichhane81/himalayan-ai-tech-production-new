@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { api, endpoints } from '@/lib/api'
+import { DemoBotSwitcher, BotType } from './DemoBotSwitcher'
 
 type ChatMessage = {
   role: 'user' | 'assistant'
@@ -9,6 +10,7 @@ type ChatMessage = {
 }
 
 export default function Chat() {
+  const [botType, setBotType] = useState<BotType>('support')
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [loading, setLoading] = useState(false)
@@ -29,7 +31,8 @@ export default function Chat() {
     try {
       const response = await api.post(endpoints.chat, {
         message: trimmed,
-        session_id: 'demo'
+        session_id: 'demo',
+        bot_type: botType
       })
 
       setMessages(prev => [...prev, { role: 'assistant', text: response.data.reply }])
@@ -42,18 +45,24 @@ export default function Chat() {
   }
 
   return (
-    <section id="chat" className="section-container py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+    <section id="chat" className="py-8 sm:py-10 md:py-12 px-4 sm:px-6">
+      <div className="section-container">
       <div className="max-w-4xl mx-auto">
-        <div className="rounded-[2rem] border border-slate-800/80 bg-slate-950/90 p-5 sm:p-8 shadow-2xl shadow-slate-950/40">
-          <div className="mb-6">
+        <div className="rounded-4xl border border-slate-800/80 bg-slate-950/90 p-4 sm:p-6 shadow-2xl shadow-slate-950/40">
+          <div className="mb-8">
             <p className="text-sm uppercase tracking-[0.3em] text-ai-cyan/80 mb-2">AI Demo Chat</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">Ask our AI assistant</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">Choose your AI assistant</h2>
             <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
-              Send a quick demo question and get an instant AI reply. This chat connects directly to the live backend.
+              Select an industry-specific demo bot and see how AI can transform your business.
             </p>
           </div>
 
-          <div className="space-y-3 min-h-[260px] max-h-[420px] overflow-y-auto rounded-3xl border border-slate-800/70 bg-slate-950/70 p-4 sm:p-5">
+          {/* Bot Switcher */}
+          <div className="mb-8">
+            <DemoBotSwitcher selectedBot={botType} onBotChange={setBotType} />
+          </div>
+
+          <div className="space-y-2 min-h-64 max-h-96 overflow-y-auto rounded-3xl border border-slate-800/70 bg-slate-950/70 p-3 sm:p-4">
             {messages.length === 0 ? (
               <div className="rounded-3xl border border-dashed border-slate-700/80 bg-slate-950/50 p-8 text-center text-slate-500">
                 Start the demo by typing a question and clicking Send.
@@ -94,6 +103,7 @@ export default function Chat() {
             </button>
           </form>
         </div>
+      </div>
       </div>
     </section>
   )

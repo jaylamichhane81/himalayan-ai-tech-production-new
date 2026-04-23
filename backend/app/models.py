@@ -27,6 +27,7 @@ class ContactListResponse(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
     session_id: Optional[str] = None
+    bot_type: str = Field(default="support", pattern="^(hotel|school|support)$")
 
 class ChatResponse(BaseModel):
     reply: str

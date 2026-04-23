@@ -16,6 +16,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
 
 # Get database URL from environment
 DATABASE_URL = os.getenv("DATABASE_URL")
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development").lower()
 
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable is required")
@@ -25,25 +26,38 @@ if "postgresql" in DATABASE_URL:
     if parsed.hostname and parsed.hostname.startswith("dpg-") and "." not in parsed.hostname:
         raise ValueError(
             "DATABASE_URL host appears incomplete. "
-            "Use the full Render hostname, e.g. dpg-xxxx.postgres-render.com. "
+            "Use the full Render hostname, e.g. dpg-xxxx.postgres.render.com. "
             f"Current host: {parsed.hostname}"
         )
 
-print(f"Connecting to database: {'PostgreSQL' if 'postgresql' in DATABASE_URL else 'SQLite'}")
+db_type = 'PostgreSQL' if 'postgresql' in DATABASE_URL else 'SQLite'
+print(f"Connecting to database: {db_type}")
 
 # Connection settings based on database type
 if "postgresql" in DATABASE_URL:
-    # PostgreSQL production settings
     engine = create_engine(
         DATABASE_URL,
         pool_size=10,
         max_overflow=20,
-        pool_pre_ping=True,  # Test connections before using
-        pool_recycle=300,  # Recycle connections after 5 minutes
+        pool_pre_ping=True,
+        pool_recycle=300,
         echo=os.getenv("SQL_ECHO", "false").lower() == "true"
     )
+
+    if ENVIRONMENT != 'production':
+        try:
+            with engine.connect() as connection:
+                pass
+        except Exception as connect_error:
+            print("WARNING: PostgreSQL connection failed. Falling back to local SQLite for development.")
+            print(f"  Reason: {connect_error}")
+            engine = create_engine(
+                "sqlite:///./dev.db",
+                connect_args={"check_same_thread": False},
+                poolclass=StaticPool,
+                echo=os.getenv("SQL_ECHO", "false").lower() == "true"
+            )
 else:
-    # SQLite development settings (fallback)
     print("WARNING: Using SQLite database. Set DATABASE_URL for PostgreSQL.")
     engine = create_engine(
         DATABASE_URL,

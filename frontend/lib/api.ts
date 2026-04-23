@@ -18,6 +18,8 @@ export const endpoints = {
 export interface ChatResponse {
   reply: string
   session_id: string
+  message_id: string
+  timestamp: string
 }
 
 export interface ContactResponse {
