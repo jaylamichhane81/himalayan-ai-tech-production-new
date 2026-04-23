@@ -23,7 +23,7 @@ export function ProblemSolution() {
             <div className="text-4xl mb-4">❌</div>
             <h3 className="text-2xl font-bold mb-4 text-red-400">The Problem</h3>
             <p className="text-slate-300 text-lg leading-relaxed">
-              Businesses lose 70% of customers because they don't respond fast enough.
+              Businesses lose 70% of customers because they don&apos;t respond fast enough.
             </p>
           </motion.div>
 
