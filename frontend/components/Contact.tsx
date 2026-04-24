@@ -94,7 +94,7 @@ export function Contact() {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
 
   return (
-    <section id="contact" className="py-8 sm:py-10 md:py-12 px-4 sm:px-6">
+    <section id="contact" className="scroll-mt-24 py-12 sm:py-16 md:py-20">
       <div className="section-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
