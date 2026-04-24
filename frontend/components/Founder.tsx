@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export function Founder() {
   return (
-    <section id="founder" className="py-12 sm:py-14 md:py-16 px-4 sm:px-6">
+    <section id="founder" className="py-12 sm:py-16 md:py-20">
       <div className="section-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -18,7 +18,7 @@ export function Founder() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex justify-center mb-4 sm:mb-6"
+          className="flex justify-center mb-2 sm:mb-4"
         >
           <div className="relative overflow-hidden rounded-full border-2 border-ai-cyan/30 glow-cyan w-28 h-28">
             <img
@@ -34,15 +34,15 @@ export function Founder() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
-          className="mb-6 sm:mb-8"
+          className="mb-4 sm:mb-6"
         >
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gradient mb-4 sm:mb-6 px-2 sm:px-0">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gradient mb-4 sm:mb-6">
             Founder-Led Excellence & Accountability
           </h2>
-          <p className="text-slate-300 leading-relaxed text-base sm:text-lg mb-4 px-2 sm:px-0">
+          <p className="text-slate-300 leading-relaxed text-base sm:text-lg mb-4">
             I am Jayram Lamichhane, building Himalayan AI with a commitment to engineering excellence.
           </p>
-          <p className="text-slate-400 leading-relaxed text-sm sm:text-base px-2 sm:px-0">
+          <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
             No layers. No delays. Direct access to expertise. We deliver what we promise.
           </p>
         </motion.div>
