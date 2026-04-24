@@ -32,7 +32,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="services" className="py-8 sm:py-10 md:py-12">
+    <section id="services" className="scroll-mt-24 py-12 sm:py-16 md:py-20">
       <div className="section-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
