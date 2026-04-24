@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export function Founder() {
   return (
-    <section id="founder" className="py-12 sm:py-16 md:py-20">
+    <section id="founder" className="scroll-mt-24 py-12 sm:py-16 md:py-20">
       <div className="section-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
