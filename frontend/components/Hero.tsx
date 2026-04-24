@@ -3,11 +3,6 @@
 import { motion } from 'framer-motion'
 
 export function Hero() {
-  const scrollToDemo = () => {
-    const element = document.getElementById('demo')
-    element?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   const scrollToContact = () => {
     const element = document.getElementById('contact')
     element?.scrollIntoView({ behavior: 'smooth' })
