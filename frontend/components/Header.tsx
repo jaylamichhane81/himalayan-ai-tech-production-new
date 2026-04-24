@@ -112,7 +112,7 @@ window.scrollTo({
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed right-0 top-0 h-full w-80 bg-midnight-light/95 glass-effect flex flex-col p-6"
+              className="fixed right-0 top-0 h-full w-[85%] max-w-sm bg-midnight-light/95 glass-effect flex flex-col p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-col gap-6 mt-20">
