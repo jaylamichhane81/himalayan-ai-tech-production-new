@@ -15,7 +15,14 @@ export function Header() {
     }
 
     const element = document.getElementById(id)
-    element?.scrollIntoView({ behavior: 'smooth' })
+    const headerOffset = 80
+const elementPosition = element.getBoundingClientRect().top + window.scrollY
+const offsetPosition = elementPosition - headerOffset
+
+window.scrollTo({
+  top: offsetPosition,
+  behavior: 'smooth',
+})
     setMobileMenuOpen(false)
   }
 
