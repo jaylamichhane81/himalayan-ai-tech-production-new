@@ -14,7 +14,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-24">
       <div className="absolute inset-0 bg-gradient-ai opacity-50" />
       <motion.div
         animate={{
