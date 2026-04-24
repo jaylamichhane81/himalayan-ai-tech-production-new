@@ -8,23 +8,31 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const scrollToSection = (id: string) => {
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      setMobileMenuOpen(false)
-      return
-    }
-
-    const element = document.getElementById(id)
-    const headerOffset = 80
-const elementPosition = element.getBoundingClientRect().top + window.scrollY
-const offsetPosition = elementPosition - headerOffset
-
-window.scrollTo({
-  top: offsetPosition,
-  behavior: 'smooth',
-})
+  if (id === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     setMobileMenuOpen(false)
+    return
   }
+
+  const element = document.getElementById(id)
+
+  // SAFE CHECK (important for build)
+  if (!element) {
+    setMobileMenuOpen(false)
+    return
+  }
+
+  const headerOffset = 80
+  const elementPosition = element.getBoundingClientRect().top + window.scrollY
+  const offsetPosition = elementPosition - headerOffset
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth',
+  })
+
+  setMobileMenuOpen(false)
+}
 
   return (
     <>
