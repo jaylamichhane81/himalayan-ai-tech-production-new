@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const testimonials = [
@@ -52,11 +53,14 @@ export function Testimonials() {
                 whileHover={{ y: -4, boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)' }}
                 className="card-premium p-6 md:p-8 text-center"
               >
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden border-2 border-ai-cyan/30">
-                  <img
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden border-2 border-ai-cyan/30 relative">
+                  <Image
                     src={testimonial.avatar}
                     alt={testimonial.author}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-cover"
+                    priority={false}
                   />
                 </div>
 

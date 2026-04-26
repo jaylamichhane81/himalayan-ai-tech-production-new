@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export function Founder() {
@@ -21,10 +22,13 @@ export function Founder() {
           className="flex justify-center mb-2 sm:mb-4"
         >
           <div className="relative overflow-hidden rounded-full border-2 border-ai-cyan/30 glow-cyan w-28 h-28">
-            <img
+            <Image
               src="/images/pic.jpg"
               alt="Jayram Lamichhane"
+              width={112}
+              height={112}
               className="w-full h-full object-cover"
+              priority={false}
             />
           </div>
         </motion.div>
