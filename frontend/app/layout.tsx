@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { ServiceWorker } from '@/components/ServiceWorker'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { Providers } from '@/components/Providers'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -51,7 +54,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
       </head>
       <body className="bg-gradient-ai antialiased">
-        {children}
+        <ErrorBoundary>
+          <Providers>
+            <ServiceWorker />
+            {children}
+          </Providers>
+        </ErrorBoundary>
       </body>
     </html>
   )

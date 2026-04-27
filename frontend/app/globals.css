@@ -6,8 +6,38 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Animation Performance Optimizations */
+* {
+  /* GPU acceleration for transforms and opacity */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize will-change for animated elements */
+.animate-float,
+.animate-glow,
+.animate-pulse {
+  will-change: transform, opacity;
+}
+
+/* Smooth scrolling optimization */
 html {
   scroll-behavior: smooth;
+  /* Optimize scrolling on touch devices */
+  -webkit-overflow-scrolling: touch;
 }
 
 body {

@@ -1,16 +1,41 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Founder } from '@/components/Founder'
 import { Features } from '@/components/Features'
 import { UseCases } from '@/components/UseCases'
-import { Testimonials } from '@/components/Testimonials'
-import  Chat  from '@/components/Chat'
 import { CTA } from '@/components/CTA'
-import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
+
+// Dynamic imports for code splitting and better performance
+const Chat = dynamic(() => import('@/components/Chat').then(mod => ({ default: mod.default })), {
+  loading: () => (
+    <div className="py-16 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ai-cyan"></div>
+    </div>
+  ),
+  ssr: false // Disable SSR for chat component
+})
+
+const Testimonials = dynamic(() => import('@/components/Testimonials'), {
+  loading: () => (
+    <div className="py-16 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ai-cyan"></div>
+    </div>
+  ),
+  ssr: false
+})
+
+const Contact = dynamic(() => import('@/components/Contact'), {
+  loading: () => (
+    <div className="py-16 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ai-cyan"></div>
+    </div>
+  )
+})
 
 export default function Home() {
   return (

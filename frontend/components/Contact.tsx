@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useMutation } from '@tanstack/react-query'
 import { Mail, Phone, MapPin, ShieldCheck, CheckCircle, AlertTriangle } from 'lucide-react'
 import { api, endpoints, ContactResponse } from '@/lib/api'
 
@@ -21,25 +22,30 @@ export function Contact() {
     budget: '',
     project: '',
   })
-  const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+
+  const contactMutation = useMutation({
+    mutationFn: (data: FormState) => api.post<ContactResponse>(endpoints.contact, data),
+    onSuccess: () => {
+      setFormData({ name: '', email: '', phone: '', budget: '', project: '' })
+      setTimeout(() => contactMutation.reset(), 5000)
+    },
+  })
 
   const validateForm = (): boolean => {
     if (!formData.name.trim()) {
-      setError('Name is required')
+      contactMutation.reset()
       return false
     }
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setError('Valid email is required')
+      contactMutation.reset()
       return false
     }
     if (!formData.project.trim()) {
-      setError('Project description is required')
+      contactMutation.reset()
       return false
     }
     if (formData.project.trim().length < 10) {
-      setError('Project description must be at least 10 characters long.')
+      contactMutation.reset()
       return false
     }
     return true
@@ -47,29 +53,11 @@ export function Contact() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setError(null)
+    contactMutation.reset()
 
     if (!validateForm()) return
 
-    setLoading(true)
-
-    try {
-      await api.post<ContactResponse>(endpoints.contact, formData)
-
-      setSubmitted(true)
-      setFormData({ name: '', email: '', phone: '', budget: '', project: '' })
-
-      setTimeout(() => setSubmitted(false), 5000)
-    } catch (err) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : err && typeof err === 'object' && 'message' in err
-          ? (err as { message: string }).message
-          : 'Failed to send message. Please try again.'
-      setError(errorMessage)
-    } finally {
-      setLoading(false)
-    }
+    contactMutation.mutate(formData)
   }
 
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
@@ -135,7 +123,7 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            {error && (
+            {contactMutation.isError && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -143,12 +131,16 @@ export function Contact() {
               >
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4" />
-                  <span>{error}</span>
+                  <span>
+                    {contactMutation.error instanceof Error
+                      ? contactMutation.error.message
+                      : 'Failed to send message. Please try again.'}
+                  </span>
                 </div>
               </motion.div>
             )}
 
-            {submitted && (
+            {contactMutation.isSuccess && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -168,10 +160,10 @@ export function Contact() {
                 value={formData.name}
                 onChange={(e) => {
                   setFormData({ ...formData, name: e.target.value })
-                  setError(null)
+                  contactMutation.reset()
                 }}
                 placeholder="Your full name"
-                disabled={loading}
+                disabled={contactMutation.isPending}
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 required
               />
@@ -184,10 +176,10 @@ export function Contact() {
                 value={formData.email}
                 onChange={(e) => {
                   setFormData({ ...formData, email: e.target.value })
-                  setError(null)
+                  contactMutation.reset()
                 }}
                 placeholder="you@company.com"
-                disabled={loading}
+                disabled={contactMutation.isPending}
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 required
               />
@@ -201,10 +193,10 @@ export function Contact() {
                   value={formData.phone}
                   onChange={(e) => {
                     setFormData({ ...formData, phone: e.target.value })
-                    setError(null)
+                    contactMutation.reset()
                   }}
                   placeholder="+977 98000 00000"
-                  disabled={loading}
+                  disabled={contactMutation.isPending}
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 />
               </div>
@@ -215,10 +207,10 @@ export function Contact() {
                   value={formData.budget}
                   onChange={(e) => {
                     setFormData({ ...formData, budget: e.target.value })
-                    setError(null)
+                    contactMutation.reset()
                   }}
                   placeholder="Example: NPR 100k - 250k"
-                  disabled={loading}
+                  disabled={contactMutation.isPending}
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 />
               </div>
@@ -230,11 +222,11 @@ export function Contact() {
                 value={formData.project}
                 onChange={(e) => {
                   setFormData({ ...formData, project: e.target.value })
-                  setError(null)
+                  contactMutation.reset()
                 }}
                 placeholder="Describe your AI project goals and timeline..."
                 rows={5}
-                disabled={loading}
+                disabled={contactMutation.isPending}
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-ai-cyan/20 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/30 transition-all resize-none disabled:opacity-50 text-sm sm:text-base"
                 required
               />
@@ -242,13 +234,13 @@ export function Contact() {
 
             <motion.button
               type="submit"
-              disabled={loading || submitted}
-              whileHover={!loading && !submitted ? { scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.5)' } : {}}
-              whileTap={!loading && !submitted ? { scale: 0.95 } : {}}
+              disabled={contactMutation.isPending || contactMutation.isSuccess}
+              whileHover={!contactMutation.isPending && !contactMutation.isSuccess ? { scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.5)' } : {}}
+              whileTap={!contactMutation.isPending && !contactMutation.isSuccess ? { scale: 0.95 } : {}}
               className="w-full btn-primary text-sm sm:text-base lg:text-lg py-3 font-semibold disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading && <span className="animate-spin">⚙️</span>}
-              {loading ? 'Sending...' : submitted ? '✓ Sent Successfully!' : 'Send Project Details'}
+              {contactMutation.isPending && <span className="animate-spin">⚙️</span>}
+              {contactMutation.isPending ? 'Sending...' : contactMutation.isSuccess ? '✓ Sent Successfully!' : 'Send Project Details'}
             </motion.button>
 
             <p className="text-center text-xs sm:text-sm text-slate-500">
