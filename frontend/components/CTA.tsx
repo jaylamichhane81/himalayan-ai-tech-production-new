@@ -1,14 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react'
 
 export function CTA() {
   const scrollToDemo = () => {
     const element = document.getElementById('chat')
     element?.scrollIntoView({ behavior: 'smooth' })
   }
-
-  const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9779841000000'
 
   return (
     <section className="py-8 sm:py-10 md:py-12">
@@ -27,6 +26,11 @@ export function CTA() {
         />
 
         <div className="relative z-10 px-4 sm:px-6 md:px-8">
+          <div className="mb-4 inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/80 px-4 py-2 text-ai-cyan border border-ai-cyan/20 mx-auto w-fit">
+            <Sparkles className="w-5 h-5" />
+            AI automation made simple
+          </div>
+
           <motion.h2
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gradient"
             initial={{ opacity: 0, y: 20 }}
@@ -61,17 +65,19 @@ export function CTA() {
                 const element = document.getElementById('contact')
                 element?.scrollIntoView({ behavior: 'smooth' })
               }}
-              className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto"
+              className="btn-primary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 font-semibold w-full sm:w-auto flex items-center justify-center gap-2"
             >
               Book Demo
+              <ArrowRight className="w-4 h-4" />
             </motion.button>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToDemo}
-              className="btn-secondary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 w-full sm:w-auto text-center"
+              className="btn-secondary text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-3 w-full sm:w-auto text-center flex items-center justify-center gap-2"
             >
+              <MessageCircle className="w-4 h-4" />
               Try Free Chatbot
             </motion.button>
           </motion.div>

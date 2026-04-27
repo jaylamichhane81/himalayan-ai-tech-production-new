@@ -1,28 +1,58 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { MessageSquare, Star } from 'lucide-react'
 
 const testimonials = [
   {
     quote: 'This AI chatbot reduced our support load by 80%',
-    author: 'Sarah Johnson',
+    author: 'Ram Prasad Sharma',
     role: 'CEO, Tech Startup',
-    avatar: '/images/sarah.png',
   },
   {
     quote: 'Our conversion rate increased by 150% after implementing AI chatbots',
-    author: 'Michael Chen',
+    author: 'Aruna Lamsal',
     role: 'Marketing Director, E-commerce',
-    avatar: '/images/Michael.png',
   },
   {
     quote: 'Customers love the instant responses, available 24/7',
-    author: 'Emily Rodriguez',
+    author: 'Shyam Bahadur Shahi',
     role: 'Owner, Local Business',
-    avatar: '/images/Emily.png',
   },
 ]
+
+const fallbackAvatar = '/images/logo.png'
+
+type Testimonial = typeof testimonials[number]
+
+function TestimonialCard({ testimonial, delay }: { testimonial: Testimonial; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      viewport={{ once: true }}
+      whileHover={{ y: -4, boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)' }}
+      className="card-premium p-6 md:p-8 text-center"
+    >
+      <div className="inline-flex items-center justify-center gap-2 mb-4 text-ai-cyan/80">
+        <MessageSquare className="w-4 h-4" />
+        <Star className="w-4 h-4" />
+      </div>
+
+      <blockquote className="text-slate-300 mb-3 italic">
+        &quot;{testimonial.quote}&quot;
+      </blockquote>
+
+      <div>
+        <div className="font-semibold text-white">{testimonial.author}</div>
+        <div className="text-sm text-slate-400">{testimonial.role}</div>
+      </div>
+    </motion.div>
+  )
+}
 
 export function Testimonials() {
   return (
@@ -44,35 +74,7 @@ export function Testimonials() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {testimonials.map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -4, boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)' }}
-                className="card-premium p-6 md:p-8 text-center"
-              >
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden border-2 border-ai-cyan/30 relative">
-                  <Image
-                    src={testimonial.avatar}
-                    alt={testimonial.author}
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-cover"
-                    priority={false}
-                  />
-                </div>
-
-                <blockquote className="text-slate-300 mb-3 italic">
-                  &quot;{testimonial.quote}&quot;
-                </blockquote>
-
-                <div>
-                  <div className="font-semibold text-white">{testimonial.author}</div>
-                  <div className="text-sm text-slate-400">{testimonial.role}</div>
-                </div>
-              </motion.div>
+              <TestimonialCard key={testimonial.author} testimonial={testimonial} delay={i * 0.2} />
             ))}
           </div>
         </motion.div>

@@ -1,0 +1,13 @@
+
+> himalayan-ai-tech-pro-frontend@1.0.0 lint
+> eslint -c .eslintrc.js . --ext .js,.jsx,.ts,.tsx --max-warnings=0
+
+
+C:\Users\asus\Downloads\himalayan-ai-tech-pro\frontend\next-env.d.ts
+  3:1  error  Do not use a triple slash reference for ./.next/types/routes.d.ts, use `import` style instead  @typescript-eslint/triple-slash-reference
+
+C:\Users\asus\Downloads\himalayan-ai-tech-pro\frontend\next.config.js
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+✖ 2 problems (2 errors, 0 warnings)
+

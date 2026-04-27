@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Sparkles } from 'lucide-react'
 
 export function Hero() {
   const scrollToContact = () => {
@@ -40,7 +41,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            <div className="px-3 sm:px-4 py-2 bg-linear-to-r from-ai-cyan/10 to-ai-purple/10 rounded-full border border-ai-cyan/30 text-xs sm:text-sm text-ai-cyan font-semibold">
+            <div className="px-3 sm:px-4 py-2 bg-linear-to-r from-ai-cyan/10 to-ai-purple/10 rounded-full border border-ai-cyan/30 text-xs sm:text-sm text-ai-cyan font-semibold inline-flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
               ✓ AI solutions for businesses
             </div>
           </motion.div>

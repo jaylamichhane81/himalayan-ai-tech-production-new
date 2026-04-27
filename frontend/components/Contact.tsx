@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Mail, Phone, MapPin, ShieldCheck, CheckCircle, AlertTriangle } from 'lucide-react'
 import { api, endpoints, ContactResponse } from '@/lib/api'
 
 interface FormState {
@@ -23,26 +24,6 @@ export function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [healthCheckLoading, setHealthCheckLoading] = useState(false)
-  const [healthStatus, setHealthStatus] = useState<string | null>(null)
-
-  const checkHealth = async () => {
-    setHealthCheckLoading(true)
-    setHealthStatus(null)
-    try {
-      const result = await api.get<{ status: string }>(endpoints.health)
-      setHealthStatus('✓ Connection successful! API is responding.')
-    } catch (err) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : err && typeof err === 'object' && 'message' in err
-          ? (err as { message: string }).message
-          : 'Health check failed. Please try again.'
-      setHealthStatus(`✗ Connection failed: ${errorMessage}`)
-    } finally {
-      setHealthCheckLoading(false)
-    }
-  }
 
   const validateForm = (): boolean => {
     if (!formData.name.trim()) {
@@ -105,29 +86,42 @@ export function Contact() {
       >
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr]">
           <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-ai-cyan/10 px-4 py-2 text-ai-cyan border border-ai-cyan/20">
+              <Mail className="w-5 h-5" />
+              Let us Build Your AI Solution
+            </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">Let us Build Your AI Solution</h2>
             <p className="text-slate-400 mb-6 sm:mb-8 md:mb-10 text-sm sm:text-base md:text-lg max-w-2xl">
               Reach out for a free demo, custom chatbot, AI website, or automation plan. We focus on fast delivery and real business value.
             </p>
 
-            <div className="rounded-3xl border border-ai-cyan/15 bg-slate-950/80 p-4 sm:p-5 space-y-3 shadow-xl shadow-ai-cyan/10">
-              <div>
-                <p className="text-sm text-slate-400 uppercase tracking-[0.2em] mb-2">Contact</p>
-                <p className="text-white font-semibold">WhatsApp</p>
-                <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="text-ai-cyan hover:text-white block">
-                  +977 9849745629
-                </a>
+            <div className="rounded-3xl border border-ai-cyan/15 bg-slate-950/80 p-4 sm:p-5 space-y-4 shadow-xl shadow-ai-cyan/10">
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-ai-cyan mt-1" />
+                <div>
+                  <p className="text-sm text-slate-400 uppercase tracking-[0.2em] mb-2">Contact</p>
+                  <p className="text-white font-semibold">WhatsApp</p>
+                  <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="text-ai-cyan hover:text-white block">
+                    +977 9849745629
+                  </a>
+                </div>
               </div>
-              <div>
-                <p className="text-white font-semibold">Email</p>
-                <a href="mailto:hello@himalayanaitech.com" className="text-ai-cyan hover:text-white block">himalayanaitech@gmail.com
-</a>
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-ai-cyan mt-1" />
+                <div>
+                  <p className="text-white font-semibold">Email</p>
+                  <a href="mailto:hello@himalayanaitech.com" className="text-ai-cyan hover:text-white block">himalayanaitech@gmail.com</a>
+                </div>
               </div>
-              <div>
-                <p className="text-white font-semibold">Address</p>
-                <p className="text-slate-400">Gokarneshwor-5, Kathmandu, Nepal</p>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-ai-cyan mt-1" />
+                <div>
+                  <p className="text-white font-semibold">Address</p>
+                  <p className="text-slate-400">Gokarneshwor-5, Kathmandu, Nepal</p>
+                </div>
               </div>
-              <div>
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-ai-cyan mt-1" />
                 <p className="text-slate-400 text-sm">Free demo available. We reply within 24 hours.</p>
               </div>
             </div>
@@ -147,7 +141,10 @@ export function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm"
               >
-                ⚠️ {error}
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>{error}</span>
+                </div>
               </motion.div>
             )}
 
@@ -157,32 +154,12 @@ export function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 bg-ai-cyan/10 border border-ai-cyan/30 rounded-lg text-ai-cyan text-sm"
               >
-                ✓ Perfect! We will review your project and connect within 24 hours.
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Perfect! We will review your project and connect within 24 hours.</span>
+                </div>
               </motion.div>
             )}
-
-            {healthStatus && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`p-3 rounded-lg text-xs border ${
-                  healthStatus.startsWith('✓')
-                    ? 'bg-green-500/10 border-green-500/30 text-green-400'
-                    : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'
-                }`}
-              >
-                {healthStatus}
-              </motion.div>
-            )}
-
-            <button
-              type="button"
-              onClick={checkHealth}
-              disabled={healthCheckLoading}
-              className="w-full px-3 py-2 text-xs bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 rounded-lg text-slate-400 hover:text-slate-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {healthCheckLoading ? '🔄 Testing connection...' : '🔗 Test API Connection'}
-            </button>
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Your Name *</label>

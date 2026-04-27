@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Sparkles, User } from 'lucide-react'
 
 export function Founder() {
   return (
@@ -40,6 +41,10 @@ export function Founder() {
           viewport={{ once: true }}
           className="mb-4 sm:mb-6"
         >
+          <div className="mb-4 inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/80 px-4 py-2 text-ai-cyan border border-ai-cyan/20 mx-auto">
+            <Sparkles className="w-5 h-5" />
+            Founder-led engineering excellence
+          </div>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gradient mb-4 sm:mb-6">
             Founder-Led Excellence & Accountability
           </h2>
@@ -49,6 +54,10 @@ export function Founder() {
           <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
             No layers. No delays. Direct access to expertise. We deliver what we promise.
           </p>
+          <div className="mt-6 inline-flex items-center gap-2 justify-center text-slate-300">
+            <User className="w-4 h-4 text-ai-cyan" />
+            Direct collaboration with the founder on every project.
+          </div>
         </motion.div>
       </motion.div>      </div>    </section>
   )
