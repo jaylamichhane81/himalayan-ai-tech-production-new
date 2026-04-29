@@ -1,4 +1,3 @@
-const CACHE_NAME = 'himalayan-ai-v1'
 const STATIC_CACHE = 'himalayan-ai-static-v1'
 const API_CACHE = 'himalayan-ai-api-v1'
 

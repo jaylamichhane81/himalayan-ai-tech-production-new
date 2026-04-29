@@ -14,7 +14,7 @@ interface FormState {
   project: string
 }
 
-export function Contact() {
+export default function Contact() {
   const [formData, setFormData] = useState<FormState>({
     name: '',
     email: '',
@@ -185,7 +185,7 @@ export function Contact() {
               />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">WhatsApp / Phone</label>
                 <input

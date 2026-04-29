@@ -12,7 +12,7 @@ const api = axios.create({
 export const endpoints = {
   health: "/health",
   chat: "/ai/chat",
-  contact: "/contact",
+  contact: "/contact/",
 }
 
 export interface ChatResponse {

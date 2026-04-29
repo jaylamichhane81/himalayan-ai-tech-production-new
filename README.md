@@ -1,53 +1,243 @@
-# Himalayan AI Tech Pro - AI Lead Capture MVP
+# Himalayan AI Tech Pro - Production-Ready AI SaaS Application
 
-> Launch AI-assisted customer chat and lead capture with a modern landing page.
+A modern, professional AI SaaS web application built with Next.js, TypeScript, and FastAPI. Features a complete landing page with AI chatbot demo, contact forms, and responsive design.
 
-**Status**: ✅ **MVP Ready** | **Version**: 1.0 | **License**: MIT
+## 🚀 Features
 
-A lean, production-ready MVP with a Next.js landing page, AI chat demo, and contact lead capture backend.
+- **Professional Landing Page**: Services, Founder, Testimonials, Contact sections
+- **AI Chatbot Demo**: Real-time streaming chat with industry-specific bots (Hotel, School, Support)
+- **Responsive Design**: Mobile-first approach with premium SaaS styling
+- **Contact Form**: Working form with validation and database storage
+- **Smooth Animations**: Framer Motion animations throughout
+- **Production Ready**: Optimized builds, error handling, and clean code
 
----
+## 🛠 Tech Stack
 
-## ⚡ Quick Start
+### Frontend
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Lucide Icons**
 
-```bash
-# Get the code
-git clone https://github.com/jaylamichhane81/himalayan-ai-tech-pro.git
-cd himalayan-ai-tech-pro
+### Backend
+- **FastAPI** (Python)
+- **SQLAlchemy** (ORM)
+- **SQLite/PostgreSQL** (Database)
+- **Pydantic** (Validation)
 
-# Backend (Terminal 1)
-cd backend && pip install -r requirements.txt
-cp .env.example .env && uvicorn app.main:app --reload --port 10000
+## 📁 Project Structure
 
-# Frontend (Terminal 2)
-cd frontend && npm install && npm run dev
+```
+himalayan-ai-tech-pro/
+├── frontend/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Features.tsx
+│   │   ├── UseCases.tsx
+│   │   ├── Founder.tsx
+│   │   ├── Testimonials.tsx
+│   │   ├── Chat.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Footer.tsx
+│   │   └── DemoBotSwitcher.tsx
+│   ├── lib/
+│   │   └── api.ts
+│   └── public/images/
+│       ├── logo.png
+│       ├── pic.jpg
+│       └── [other assets]
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── database/
+│   │   │   ├── connection.py
+│   │   │   └── models.py
+│   │   └── routers/
+│   │       ├── ai.py
+│   │       └── contact.py
+│   ├── requirements.txt
+│   └── .env
+└── README.md
 ```
 
-Visit: http://localhost:3000 🎉  
-API Docs: http://localhost:10000/docs
+## 🏃‍♂️ Quick Start
+
+### Prerequisites
+- Node.js 18+
+- Python 3.8+
+- npm or yarn
+
+### Backend Setup
+
+1. **Navigate to backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Start the backend server:**
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+   The API will be available at `http://localhost:8000`
+
+### Frontend Setup
+
+1. **Navigate to frontend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:3000`
+
+### Production Build
+
+1. **Build the frontend:**
+   ```bash
+   npm run build
+   ```
+
+2. **Start production server:**
+   ```bash
+   npm start
+   ```
+
+## 🎯 Key Components
+
+### Header/Navbar
+- Sticky navigation with Services, Founder, Contact, Book Consultation
+- Responsive design with horizontal scroll on mobile
+- Smooth scroll to sections
+
+### AI Chatbot
+- Real-time streaming responses
+- Industry-specific bots (Hotel, School, Support)
+- Typing animation and auto-scroll
+- Mobile-optimized input
+
+### Contact Form
+- Full validation with error handling
+- Database storage
+- Responsive grid layout
+- Success/error states
+
+### Testimonials
+- Clean card design without broken images
+- Responsive grid
+- Smooth animations
+
+## 🔧 Configuration
+
+### Environment Variables
+
+**Backend (.env):**
+```env
+DATABASE_URL=sqlite:///./dev.db
+ENVIRONMENT=development
+GROQ_API_KEY=your_groq_api_key_here
+LLM_MODEL=llama-3.1-8b-instant
+SENDGRID_API_KEY=your_sendgrid_key
+FROM_EMAIL=noreply@himalayanaitech.com
+ADMIN_EMAIL=admin@himalayanaitech.com
+```
+
+**Frontend (.env.local):**
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+## 🚀 Deployment
+
+### Backend Deployment
+- Use Railway, Render, or Heroku
+- Set environment variables
+- Database will auto-migrate
+
+### Frontend Deployment
+- Deploy to Vercel, Netlify, or any static host
+- Set `NEXT_PUBLIC_API_URL` to your backend URL
+
+## 📱 Responsive Design
+
+- **Mobile**: Single column, optimized touch targets
+- **Tablet**: 2-column grids, adjusted spacing
+- **Desktop**: Full layout with hover effects
+
+## 🎨 Design System
+
+- **Colors**: AI Cyan (#00d4ff), Midnight (#0a0a14), Glass effects
+- **Typography**: Clean sans-serif, responsive sizing
+- **Spacing**: Consistent padding/margins with Tailwind
+- **Animations**: Smooth Framer Motion transitions
+
+## 🔍 Testing
+
+### Backend Tests
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Chat API test
+curl -X POST http://localhost:8000/ai/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello", "bot_type": "support"}'
+```
+
+### Frontend Tests
+- Visit `http://localhost:3000`
+- Test all navigation links
+- Try the chatbot with different bot types
+- Submit the contact form
+
+## 📈 Performance
+
+- Optimized Next.js Image components
+- CSS minification and tree-shaking
+- Database connection pooling
+- Streaming responses for better UX
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 📞 Support
+
+For questions or support, contact us at hello@himalayanaitech.com
 
 ---
 
-## 🎯 What's Included
-
-### ✨ Frontend Features
-- 🎨 Premium landing page UI
-- 📱 Fully responsive design
-- 💬 Live AI chat demo
-- ✉️ Contact lead capture form
-- 🔍 SEO-friendly metadata
-
-### 🔧 Backend Features
-- 🤖 AI chat endpoint (`/ai/chat`)
-- ✉️ Contact submission endpoint (`/contact/`)
-- ✅ Pydantic validation
-- 🔐 CORS protection
-
----
-
-## 🏗️ Tech Stack
-
-| Component | Technology | Version |
+**Built with ❤️ by Himalayan AI Tech**
 |-----------|-----------|---------|
 | Frontend | Next.js + TypeScript | 15.0+ |
 | Styling | Tailwind CSS + Framer Motion | 4.1 |

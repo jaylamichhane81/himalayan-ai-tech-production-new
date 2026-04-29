@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef, FormEvent } from 'react'
-import { api, endpoints } from '@/lib/api'
 import { DemoBotSwitcher, BotType } from './DemoBotSwitcher'
 
 type ChatMessage = {
@@ -19,6 +18,7 @@ export default function Chat() {
   const [error, setError] = useState<string | null>(null)
   const [streamingMessage, setStreamingMessage] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -70,9 +70,10 @@ export default function Chat() {
                   setMessages((prev) => [...prev, { role: 'assistant', text: accumulatedText, id: Date.now().toString() }])
                   setStreamingMessage('')
                   setIsStreaming(false)
+                  setIsTyping(false)
                   return
                 }
-              } catch (e) {
+              } catch (_) {
                 // Skip invalid JSON
               }
             }
@@ -99,6 +100,7 @@ export default function Chat() {
     setInput('')
     setLoading(true)
     setIsStreaming(true)
+    setIsTyping(true)
 
     try {
       await handleStreamingResponse(trimmed)
@@ -106,6 +108,7 @@ export default function Chat() {
       console.error(err)
       setError('Unable to send message. Please try again.')
       setIsStreaming(false)
+      setIsTyping(false)
     } finally {
       setLoading(false)
     }
@@ -166,11 +169,15 @@ export default function Chat() {
                 </>
               )}
 
-              {loading && !isStreaming && (
+              {isTyping && !isStreaming && (
                 <div className="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-slate-300">
                   <p className="text-xs uppercase tracking-[0.25em] mb-2 text-slate-500">Assistant</p>
                   <div className="flex items-center gap-3 text-sm">
-                    <span className="h-2.5 w-2.5 rounded-full bg-ai-cyan animate-pulse" />
+                    <div className="flex gap-1">
+                      <span className="h-2 w-2 rounded-full bg-ai-cyan animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="h-2 w-2 rounded-full bg-ai-cyan animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="h-2 w-2 rounded-full bg-ai-cyan animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
                     <span>Typing a response...</span>
                   </div>
                 </div>
@@ -185,18 +192,18 @@ export default function Chat() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">
+            <form onSubmit={handleSubmit} className="mt-6 flex flex-col sm:flex-row gap-3">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your message..."
                 disabled={loading}
-                className="w-full rounded-3xl border border-slate-800/80 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/20 transition"
+                className="flex-1 rounded-3xl border border-slate-800/80 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-ai-cyan focus:ring-1 focus:ring-ai-cyan/20 transition min-w-0"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full sm:w-auto whitespace-nowrap px-6 py-3"
+                className="btn-primary whitespace-nowrap px-6 py-3 text-sm sm:text-base"
               >
                 {loading ? 'Sending...' : 'Send'}
               </button>

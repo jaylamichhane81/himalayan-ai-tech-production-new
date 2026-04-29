@@ -1,60 +1,72 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { MessageSquare, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    quote: 'This AI chatbot reduced our support load by 80%',
+    quote:
+      'We launched our AI support chatbot in weeks and our customer response time dropped dramatically. The team delivered a polished, professional experience.',
     author: 'Ram Prasad Sharma',
-    role: 'CEO, Tech Startup',
+    role: 'Founder, Hospitality Business',
+    image: '/images/ram.png',
   },
   {
-    quote: 'Our conversion rate increased by 150% after implementing AI chatbots',
+    quote:
+      'AI recommendations helped us boost conversions and reduce churn. The platform feels premium and the integration was seamless.',
     author: 'Aruna Lamsal',
-    role: 'Marketing Director, E-commerce',
+    role: 'Marketing Director, E-commerce Retailer',
+    image: '/images/Aruna.png',
   },
   {
-    quote: 'Customers love the instant responses, available 24/7',
+    quote:
+      'Our clients now get instant answers 24/7, and our operations team can focus on higher-value work.',
     author: 'Shyam Bahadur Shahi',
-    role: 'Owner, Local Business',
+    role: 'Owner, Local Services Company',
+    image: '/images/shyam.png',
   },
 ]
-
-const fallbackAvatar = '/images/logo.png'
 
 type Testimonial = typeof testimonials[number]
 
 function TestimonialCard({ testimonial, delay }: { testimonial: Testimonial; delay: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
+      transition={{ duration: 0.55, delay }}
       viewport={{ once: true }}
-      whileHover={{ y: -4, boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)' }}
-      className="card-premium p-6 md:p-8 text-center"
+      whileHover={{ scale: 1.03 }}
+      className="group bg-slate-950/90 border border-slate-800 rounded-3xl p-6 shadow-md shadow-slate-950/30 transition-transform duration-300"
     >
-      <div className="inline-flex items-center justify-center gap-2 mb-4 text-ai-cyan/80">
+      <div className="flex items-center gap-4 mb-5">
+        <div className="relative w-16 h-16 rounded-full overflow-hidden border border-slate-700">
+          <Image
+            src={testimonial.image}
+            alt={testimonial.author}
+            fill
+            className="object-cover"
+            sizes="64px"
+          />
+        </div>
+        <div>
+          <p className="font-semibold text-white">{testimonial.author}</p>
+          <p className="text-sm text-slate-400">{testimonial.role}</p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 mb-4 text-ai-cyan/80">
         <MessageSquare className="w-4 h-4" />
         <Star className="w-4 h-4" />
       </div>
 
-      <blockquote className="text-slate-300 mb-3 italic">
-        &quot;{testimonial.quote}&quot;
-      </blockquote>
-
-      <div>
-        <div className="font-semibold text-white">{testimonial.author}</div>
-        <div className="text-sm text-slate-400">{testimonial.role}</div>
-      </div>
+      <p className="text-slate-300 leading-relaxed">{testimonial.quote}</p>
     </motion.div>
   )
 }
 
-export function Testimonials() {
+export default function Testimonials() {
   return (
     <section className="py-8 sm:py-10 md:py-12">
       <div className="section-container">

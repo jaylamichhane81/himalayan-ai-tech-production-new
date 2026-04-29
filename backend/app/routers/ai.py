@@ -165,6 +165,7 @@ async def get_ai_response_stream(message: str, bot_type: str = "support"):
         yield f"data: {json.dumps({'error': 'AI service timeout'})}\n\n"
     except Exception as e:
         yield f"data: {json.dumps({'error': f'AI service error: {str(e)}'})}\n\n"
+@router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """AI Chat endpoint for a lightweight demo experience."""
     if not request.message.strip():

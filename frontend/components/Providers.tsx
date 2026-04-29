@@ -3,16 +3,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
 
-// Conditionally import devtools
-let ReactQueryDevtools: any = null
-if (process.env.NODE_ENV === 'development') {
-  try {
-    ReactQueryDevtools = require('@tanstack/react-query-devtools').ReactQueryDevtools
-  } catch (e) {
-    // Devtools not available
-  }
-}
-
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>
@@ -21,9 +11,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
           queries: {
             staleTime: 1000 * 60 * 5, // 5 minutes
             gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
-            retry: (failureCount, error: any) => {
+            retry: (failureCount, error: unknown) => {
               // Don't retry on 4xx errors
-              if (error?.status >= 400 && error?.status < 500) {
+              const axiosError = error as { status?: number }
+              if (axiosError?.status && axiosError.status >= 400 && axiosError.status < 500) {
                 return false
               }
               return failureCount < 3
@@ -40,9 +31,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {process.env.NODE_ENV === 'development' && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
     </QueryClientProvider>
   )
 }
