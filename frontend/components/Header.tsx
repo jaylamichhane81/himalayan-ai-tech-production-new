@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Calendar } from 'lucide-react'
+import { Calendar, Menu, X } from 'lucide-react'
+import { useState } from 'react'
 
 const navItems = [
   { label: 'Services', id: 'services' },
@@ -11,6 +12,8 @@ const navItems = [
 ]
 
 export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   const scrollToSection = (id: string) => {
     if (id === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -25,6 +28,7 @@ export function Header() {
     const offsetPosition = elementPosition - headerOffset
 
     window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+    setIsMobileMenuOpen(false) // Close mobile menu after navigation
   }
 
   return (
@@ -34,7 +38,7 @@ export function Header() {
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 bg-midnight/90 backdrop-blur-xl border-b border-slate-800/60 w-full"
     >
-      <div className="section-container py-4 sm:py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -57,7 +61,8 @@ export function Header() {
           </div>
         </motion.button>
 
-        <div className="flex flex-wrap items-center gap-6 justify-between w-full sm:w-auto">
+        {/* Desktop Navigation */}
+        <div className="hidden sm:flex flex-wrap items-center gap-8 justify-between w-full sm:w-auto">
           <nav className="flex flex-wrap items-center gap-8">
             {navItems.map((item) => (
               <motion.button
@@ -81,7 +86,48 @@ export function Header() {
             <span>Book Consultation</span>
           </motion.button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="sm:hidden p-2 text-slate-300 hover:text-white transition-colors"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="sm:hidden bg-midnight/95 backdrop-blur-xl border-t border-slate-800/60"
+        >
+          <div className="px-4 py-4 space-y-4">
+            <nav className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-slate-300 hover:text-white transition-colors text-left text-base font-medium"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => scrollToSection('contact')}
+              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-3 rounded-lg shadow-lg shadow-blue-500/10 transition-transform duration-200"
+            >
+              <Calendar size={18} />
+              <span>Book Consultation</span>
+            </motion.button>
+          </div>
+        </motion.div>
+      )}
     </motion.header>
   )
 }

@@ -4,13 +4,13 @@ import { motion } from 'framer-motion'
 
 export function ProblemSolution() {
   return (
-    <section className="section-container py-12 sm:py-16 md:py-20">
+    <section className="px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-4xl mx-auto"
+        className="max-w-7xl mx-auto"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           <motion.div

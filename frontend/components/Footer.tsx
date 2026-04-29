@@ -20,9 +20,9 @@ export function Footer() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="border-t border-ai-cyan/20 bg-linear-to-b from-midnight to-midnight-light/30 backdrop-blur-xl py-8 sm:py-10 md:py-12 px-4 sm:px-6"
+      className="border-t border-ai-cyan/20 bg-linear-to-b from-midnight to-midnight-light/30 backdrop-blur-xl py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 lg:px-12"
     >
-      <div className="section-container">
+      <div className="max-w-7xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-6">
           {/* Logo and Description */}

@@ -45,16 +45,18 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Header />
-      <Hero />
-      <Founder />
-      <Features />
-      <UseCases />
-      <Testimonials />
-      <Chat />
-      <CTA />
-      <Contact />
-      <Footer />
+      <div className="max-w-7xl mx-auto">
+        <Header />
+        <Hero />
+        <Founder />
+        <Features />
+        <UseCases />
+        <Testimonials />
+        <Chat />
+        <CTA />
+        <Contact />
+        <Footer />
+      </div>
     </motion.main>
   )
 }
