@@ -80,7 +80,7 @@ export default function Chat() {
                 setIsTyping(false)
                 return
               }
-            } catch (_) {
+            } catch {
               // Skip invalid JSON
             }
           }

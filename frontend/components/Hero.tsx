@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sparkles, Calendar, CheckCircle } from 'lucide-react'
+import { Calendar, CheckCircle } from 'lucide-react'
 
 export function Hero() {
   const scrollToContact = () => {
