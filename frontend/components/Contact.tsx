@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
-import { WHATSAPP_NUMBER } from '@/lib/constants'
+import { WHATSAPP_NUMBER } from '../lib/constants'
 import {
   Mail,
   Phone,
