@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { MessageSquare, Star } from 'lucide-react'
+import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
@@ -30,66 +30,92 @@ const testimonials = [
 
 type Testimonial = typeof testimonials[number]
 
-function TestimonialCard({ testimonial, delay }: { testimonial: Testimonial; delay: number }) {
+function TestimonialCard({
+  testimonial,
+  delay,
+}: {
+  testimonial: Testimonial
+  delay: number
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay }}
+      transition={{ duration: 0.6, delay }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.03 }}
-      className="group bg-slate-950/90 border border-slate-800 rounded-3xl p-6 shadow-md shadow-slate-950/30 transition-transform duration-300"
+      whileHover={{ scale: 1.02 }}
+      className="bg-slate-950/70 border border-slate-800 rounded-2xl p-6 shadow-lg shadow-black/20"
     >
+      {/* Author */}
       <div className="flex items-center gap-4 mb-5">
-        <div className="relative w-16 h-16 rounded-full overflow-hidden border border-slate-700">
+        <div className="relative w-14 h-14 rounded-full overflow-hidden border border-slate-700">
           <Image
             src={testimonial.image}
-            alt={testimonial.author}
+            alt={`${testimonial.author} profile`}
             fill
             className="object-cover"
-            sizes="64px"
           />
         </div>
+
         <div>
-          <p className="font-semibold text-white">{testimonial.author}</p>
-          <p className="text-sm text-slate-400">{testimonial.role}</p>
+          <p className="font-semibold text-white text-sm sm:text-base">
+            {testimonial.author}
+          </p>
+          <p className="text-xs sm:text-sm text-slate-400">
+            {testimonial.role}
+          </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-4 text-ai-cyan/80">
-        <MessageSquare className="w-4 h-4" />
+      {/* Quote icon */}
+      <div className="flex items-center gap-2 mb-3 text-ai-cyan">
+        <Quote className="w-4 h-4" />
         <Star className="w-4 h-4" />
       </div>
 
-      <p className="text-slate-300 leading-relaxed">{testimonial.quote}</p>
+      {/* Text */}
+      <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
+        {testimonial.quote}
+      </p>
     </motion.div>
   )
 }
 
 export default function Testimonials() {
   return (
-    <section className="py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 lg:px-12">
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-3 sm:mb-4 text-gradient">
-            💬 What Our Clients Say
+
+          {/* Heading */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 text-gradient">
+            What Our Clients Say
           </h2>
 
-          <p className="text-center text-slate-400 max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 text-base sm:text-lg md:text-xl">
+          {/* Subtext */}
+          <p className="text-center text-slate-400 max-w-2xl mx-auto mb-10 sm:mb-12 text-base sm:text-lg">
             Real results from businesses using our AI automation solutions.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {testimonials.map((testimonial, i) => (
-              <TestimonialCard key={testimonial.author} testimonial={testimonial} delay={i * 0.2} />
+              <TestimonialCard
+                key={testimonial.author}
+                testimonial={testimonial}
+                delay={i * 0.15}
+              />
             ))}
           </div>
+
         </motion.div>
+
       </div>
     </section>
   )

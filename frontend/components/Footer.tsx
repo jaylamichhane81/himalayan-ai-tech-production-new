@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { FaFacebook, FaLinkedin } from 'react-icons/fa'
+import { Phone, Mail, MapPin, Share, Briefcase } from 'lucide-react'
+import { WHATSAPP_NUMBER } from '@/lib/constants'
 
 export function Footer() {
   const scrollToSection = (id: string) => {
@@ -20,11 +21,12 @@ export function Footer() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="border-t border-ai-cyan/20 bg-linear-to-b from-midnight to-midnight-light/30 backdrop-blur-xl py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 lg:px-12"
+      className="border-t border-ai-cyan/20 bg-linear-to-b from-midnight to-midnight-light/30 backdrop-blur-xl py-8 sm:py-10 md:py-12 px-3 sm:px-6 lg:px-12"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-6">
+
           {/* Logo and Description */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -34,7 +36,7 @@ export function Footer() {
             className="text-center md:text-left"
           >
             <div className="flex justify-center md:justify-start items-center gap-3 mb-3">
-              <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0">
+              <div className="relative w-10 h-10 sm:w-14 sm:h-14 shrink-0">
                 <Image
                   src="/images/logo.png"
                   alt="Himalayan AI Tech"
@@ -44,16 +46,21 @@ export function Footer() {
                 />
               </div>
               <div>
-                <div className="text-sm font-semibold uppercase tracking-widest text-ai-cyan leading-tight">Himalayan</div>
-                <div className="text-lg font-bold text-white">AI Tech</div>
+                <div className="text-sm font-semibold uppercase tracking-widest text-ai-cyan leading-tight">
+                  Himalayan
+                </div>
+                <div className="text-lg font-bold text-white">
+                  AI Tech
+                </div>
               </div>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
               AI chatbots, intelligent websites and automation built to sell.
             </p>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Services */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +68,10 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Services</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
+              Services
+            </h3>
+
             <div className="space-y-2">
               {[
                 { label: 'AI Chatbot Development', id: 'services' },
@@ -80,7 +90,7 @@ export function Footer() {
             </div>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -88,28 +98,35 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Contact</h3>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
+              Contact
+            </h3>
+
             <div className="space-y-3">
+
               <a
-                href="https://wa.me/9779849745629"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center md:justify-start gap-2 text-slate-400 hover:text-ai-cyan transition-colors text-sm group"
               >
-                <span className="text-green-400 group-hover:scale-110 transition-transform">📱</span>
+                <Phone className="w-4 h-4 text-green-400 group-hover:scale-110 transition-transform" />
                 <span>+977 9849745629</span>
               </a>
+
               <a
                 href="mailto:himalayanaitech@gmail.com"
                 className="flex items-center justify-center md:justify-start gap-2 text-slate-400 hover:text-ai-cyan transition-colors text-sm group"
               >
-                <span className="text-blue-400 group-hover:scale-110 transition-transform">✉️</span>
+                <Mail className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
                 <span>himalayanaitech@gmail.com</span>
               </a>
+
               <div className="flex items-center justify-center md:justify-start gap-2 text-slate-400 text-sm">
-                <span className="text-purple-400">📍</span>
+                <MapPin className="w-4 h-4 text-purple-400" />
                 <span>Gokarneshwor-5, Kathmandu, Nepal</span>
               </div>
+
             </div>
           </motion.div>
         </div>
@@ -119,34 +136,38 @@ export function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           className="pt-8 border-t border-ai-cyan/10"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+
             <p className="text-xs sm:text-sm text-slate-500 text-center md:text-left">
               © 2026 Himalayan AI Tech. All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-4 sm:gap-6">
-  <a
-    href="https://www.facebook.com/share/1C4mEwXKDe/"
-    target="_blank"
-    rel="noreferrer"
-    className="flex items-center gap-2 text-slate-400 hover:text-ai-cyan transition-all duration-300 group"
-  >
-    <FaFacebook className="group-hover:scale-110 transition-transform" />
-    <span>Facebook</span>
-  </a>
 
-  <a
-    href="https://www.linkedin.com/in/jayram-lamichhane-83418a9b"
-    target="_blank"
-    rel="noreferrer"
-    className="flex items-center gap-2 text-slate-400 hover:text-ai-cyan transition-all duration-300 group"
-  >
-    <FaLinkedin className="group-hover:scale-110 transition-transform" />
-    <span>LinkedIn</span>
-  </a>
-</div>
+            <div className="flex flex-wrap gap-4 sm:gap-6">
+
+              <a
+                href="https://www.facebook.com/share/1C4mEwXKDe/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-slate-400 hover:text-ai-cyan transition-all duration-300 group"
+              >
+                <Share className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span>Facebook</span>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/jayram-lamichhane-83418a9b"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-slate-400 hover:text-ai-cyan transition-all duration-300 group"
+              >
+                <Briefcase className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span>LinkedIn</span>
+              </a>
+
+            </div>
           </div>
         </motion.div>
       </div>

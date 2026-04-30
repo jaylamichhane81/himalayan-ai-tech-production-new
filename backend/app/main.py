@@ -9,6 +9,8 @@ import os
 import logging
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
+from starlette.requests import Request
+from starlette.responses import Response as StarletteResponse
 
 # Load environment variables
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
@@ -41,23 +43,24 @@ app = FastAPI(
     title="Himalayan AI Tech Pro API",
     description="Fast API for AI chat and contact capture",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
-# CORS Configuration
-app.add_middleware(
-  CORSMiddleware,
-  allow_origins=[
-    "http://localhost:3000",
-    "http://localhost:3002",
-    "http://localhost:3003",
-    "https://www.himalayanaitech.com.np",
-    "https://himalayan-ai-tech-pro-a1wx.vercel.app"
-  ],
-  allow_credentials=True,
-  allow_methods=["*"],
-  allow_headers=["*"],
-)
+@app.middleware("http")
+async def add_cors_headers(request: Request, call_next):
+    if request.method == "OPTIONS":
+        return StarletteResponse(status_code=204, headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Max-Age": "3600",
+        })
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
+
 # Include only MVP routers
 app.include_router(ai.router)
 app.include_router(contact.router)

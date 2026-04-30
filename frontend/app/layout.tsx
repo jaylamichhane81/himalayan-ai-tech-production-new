@@ -4,6 +4,8 @@ import { ServiceWorker } from '@/components/ServiceWorker'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Providers } from '@/components/Providers'
 
+/* ---------------- VIEWPORT ---------------- */
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -12,29 +14,75 @@ export const viewport: Viewport = {
   themeColor: '#0a0a14',
 }
 
+/* ---------------- METADATA ---------------- */
+
 export const metadata: Metadata = {
-  title: 'Himalayan AI Tech | AI Solutions for Modern Businesses',
-  description: 'Premium AI Web Apps, Automation, Chatbots & Agentic AI solutions. Fast delivery, practical results, modern stack.',
-  keywords: 'AI solutions, FastAPI, n8n automation, AI chatbots, agentic AI, web applications',
-  creator: 'Himalayan AI Tech',
-  applicationName: 'Himalayan AI Tech Pro',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'Himalayan AI Tech',
+  metadataBase: new URL('https://www.himalayanaitech.com.np'),
+
+  title: {
+    default: 'Himalayan AI Tech | AI Chatbots & Automation',
+    template: '%s | Himalayan AI Tech',
   },
+
+  description:
+    'We build AI chatbots, automation systems, and AI SaaS products that convert visitors into customers 24/7.',
+
+  keywords: [
+    'AI chatbot Nepal',
+    'AI automation agency',
+    'AI SaaS development',
+    'Next.js AI apps',
+    'FastAPI automation',
+  ],
+
+  authors: [{ name: 'Himalayan AI Tech' }],
+  creator: 'Himalayan AI Tech',
+  applicationName: 'Himalayan AI Tech',
+
+  category: 'technology',
+
+  alternates: {
+    canonical: 'https://www.himalayanaitech.com.np',
+  },
+
   openGraph: {
     title: 'Himalayan AI Tech',
-    description: 'AI Solutions for Modern Businesses',
-    type: 'website',
+    description:
+      'AI chatbots and automation systems that convert visitors into customers.',
+    url: 'https://www.himalayanaitech.com.np',
     siteName: 'Himalayan AI Tech',
+    type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://www.himalayanaitech.com.np/images/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Himalayan AI Tech',
+      },
+    ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Himalayan AI Tech',
-    description: 'Premium AI Solutions',
+    description:
+      'AI chatbots and automation systems that convert visitors into customers.',
+    images: ['https://www.himalayanaitech.com.np/images/og.png'],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 }
+
+/* ---------------- LAYOUT ---------------- */
 
 export default function RootLayout({
   children,
@@ -43,16 +91,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-        <meta name="theme-color" content="#0a0a14" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
-      </head>
       <body className="bg-gradient-ai antialiased">
         <ErrorBoundary>
           <Providers>

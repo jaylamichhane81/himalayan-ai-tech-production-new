@@ -3,7 +3,7 @@ AI Chat Router
 Simple AI chatbot endpoint for customer demos and business questions
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
 from fastapi.responses import StreamingResponse
 from datetime import datetime
 import uuid
@@ -165,6 +165,16 @@ async def get_ai_response_stream(message: str, bot_type: str = "support"):
         yield f"data: {json.dumps({'error': 'AI service timeout'})}\n\n"
     except Exception as e:
         yield f"data: {json.dumps({'error': f'AI service error: {str(e)}'})}\n\n"
+@router.options("/chat")
+async def chat_options():
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "3600",
+    })
+
+
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """AI Chat endpoint for a lightweight demo experience."""
@@ -185,6 +195,16 @@ async def chat(request: ChatRequest):
         message_id=str(uuid.uuid4()),
         timestamp=datetime.utcnow()
     )
+
+
+@router.options("/chat/stream")
+async def chat_stream_options():
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "3600",
+    })
 
 
 @router.post("/chat/stream")

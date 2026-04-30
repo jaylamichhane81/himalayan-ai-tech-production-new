@@ -21,16 +21,19 @@ export default function Chat() {
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
+  const apiBase = process.env.NEXT_PUBLIC_API_URL?.trim() || 'http://localhost:10000'
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [messages, loading, streamingMessage])
 
   const handleStreamingResponse = async (message: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/ai/chat/stream`, {
+      const response = await fetch(`${apiBase}/ai/chat/stream`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'text/event-stream',
         },
         body: JSON.stringify({
           message,
@@ -40,50 +43,54 @@ export default function Chat() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to get streaming response')
+        const errorText = await response.text().catch(() => '')
+        throw new Error(`Failed to get streaming response (${response.status}): ${errorText}`)
       }
 
-      const reader = response.body?.getReader()
+      if (!response.body) {
+        throw new Error('No response body from server')
+      }
+
+      const reader = response.body.getReader()
       const decoder = new TextDecoder()
       let accumulatedText = ''
 
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) break
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
 
-          const chunk = decoder.decode(value)
-          const lines = chunk.split('\n')
+        const chunk = decoder.decode(value)
+        const lines = chunk.split('\n')
 
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const data = JSON.parse(line.slice(6))
-                if (data.error) {
-                  throw new Error(data.error)
-                }
-                if (data.content) {
-                  accumulatedText += data.content
-                  setStreamingMessage(accumulatedText)
-                }
-                if (data.done) {
-                  setMessages((prev) => [...prev, { role: 'assistant', text: accumulatedText, id: Date.now().toString() }])
-                  setStreamingMessage('')
-                  setIsStreaming(false)
-                  setIsTyping(false)
-                  return
-                }
-              } catch (_) {
-                // Skip invalid JSON
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6))
+              if (data.error) {
+                throw new Error(data.error)
               }
+              if (data.content) {
+                accumulatedText += data.content
+                setStreamingMessage(accumulatedText)
+              }
+              if (data.done) {
+                setMessages((prev) => [...prev, { role: 'assistant', text: accumulatedText, id: Date.now().toString() }])
+                setStreamingMessage('')
+                setIsStreaming(false)
+                setIsTyping(false)
+                return
+              }
+            } catch (_) {
+              // Skip invalid JSON
             }
           }
         }
       }
     } catch (err) {
       console.error('Streaming error:', err)
-      setError('Unable to send message. Please try again.')
+      setError(`Unable to send message. ${err instanceof Error ? err.message : 'Please try again.'}`)
       setIsStreaming(false)
+      setIsTyping(false)
       setStreamingMessage('')
     }
   }
@@ -132,7 +139,7 @@ export default function Chat() {
             </div>
 
             <div
-              className="space-y-3 min-h-[18rem] max-h-[36rem] overflow-y-auto rounded-3xl border border-slate-800/70 bg-slate-950/70 p-3 sm:p-4"
+              className="space-y-3 min-h-72 max-h-144 overflow-y-auto rounded-3xl border border-slate-800/70 bg-slate-950/70 p-3 sm:p-4"
               aria-live="polite"
             >
               {messages.length === 0 && !isStreaming ? (
@@ -144,9 +151,9 @@ export default function Chat() {
                   {messages.map((message, index) => (
                     <div
                       key={message.id || index}
-                      className={`rounded-3xl p-4 sm:p-5 ${
+                      className={`max-w-[90%] rounded-3xl p-4 sm:p-5 ${
                         message.role === 'user'
-                          ? 'bg-ai-cyan/10 border border-ai-cyan/20 text-white self-end'
+                          ? 'ml-auto bg-ai-cyan/10 border border-ai-cyan/20 text-white'
                           : 'bg-slate-900 border border-slate-700 text-slate-200'
                       }`}
                     >

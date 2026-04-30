@@ -3,7 +3,7 @@ Contact Form Router
 Handles contact form submissions with lead capture and optional email notification
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 import uuid
 import os
@@ -58,6 +58,16 @@ async def send_contact_email(contact: ContactModel):
 
     except Exception as e:
         logger.error(f"Email sending error: {str(e)}")
+
+
+@router.options("/")
+async def contact_options():
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "3600",
+    })
 
 
 @router.post("/", response_model=ContactResponse)
