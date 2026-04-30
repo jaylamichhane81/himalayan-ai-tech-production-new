@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
+import { AxiosError } from 'axios'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => {
@@ -11,7 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           staleTime: 1000 * 60 * 5, // 5 minutes
           gcTime: 1000 * 60 * 10,   // cache garbage collection
 
-          retry: (failureCount, error: any) => {
+          retry: (failureCount, error: AxiosError) => {
             // Avoid retry on client errors (4xx)
             const status = error?.response?.status || error?.status
 
