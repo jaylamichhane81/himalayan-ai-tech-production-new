@@ -51,7 +51,7 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0
   }
 
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:10000')
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000')
     .trim()
     .replace(/\/+$/, '')
 

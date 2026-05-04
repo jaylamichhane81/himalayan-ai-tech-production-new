@@ -7,7 +7,7 @@
 export const WHATSAPP_NUMBER = '9779849745629'
 
 // API base URL (fallback for when env var is not set)
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000'
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 // Environment check
 export const isProduction = process.env.NODE_ENV === 'production'

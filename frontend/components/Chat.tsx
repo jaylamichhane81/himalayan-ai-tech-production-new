@@ -21,7 +21,7 @@ export default function Chat() {
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:10000')
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000')
     .trim()
     .replace(/\/+$/, '')
 
