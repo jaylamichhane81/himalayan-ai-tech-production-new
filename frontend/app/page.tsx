@@ -47,19 +47,120 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto">
-        <Header />
-        <Hero />
-        <Founder />
-        <WhyChooseUs />
-        <Features />
-        <ProblemSolution />
-        <UseCases />
-        <Testimonials />
-        <Chat />
-        <CTA />
-        <Contact />
-        <Footer />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+        >
+          <Header />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <Hero />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <Founder />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <WhyChooseUs />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <Features />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <ProblemSolution />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
+          <UseCases />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <Testimonials />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+        >
+          <Chat />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+        >
+          <CTA />
+        </motion.div>
+        
+        <div className="border-t border-white/5"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.1 }}
+        >
+          <Contact />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        >
+          <Footer />
+        </motion.div>
       </div>
     </motion.main>
   )

@@ -10,7 +10,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative min-h-svh flex items-center justify-center overflow-hidden pt-20 sm:pt-24">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20 pb-8 sm:pb-12">
       <div className="absolute inset-0 bg-gradient-ai opacity-50" />
 
       {/* Background blobs */}
@@ -27,7 +27,7 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 lg:px-12 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -36,12 +36,12 @@ export function Hero() {
           >
             {/* Badge */}
             <motion.div
-              className="mb-3 sm:mb-4 inline-block"
+              className="mb-4 sm:mb-6 inline-block"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
             >
-              <div className="px-3 sm:px-4 py-2 bg-linear-to-r from-ai-cyan/10 to-ai-purple/10 rounded-full border border-ai-cyan/30 text-xs sm:text-sm text-ai-cyan font-semibold inline-flex items-center gap-2">
+              <div className="px-4 py-2 bg-linear-to-r from-ai-cyan/10 to-ai-purple/10 rounded-full border border-ai-cyan/30 text-sm text-ai-cyan font-semibold inline-flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" />
                 AI solutions for businesses
               </div>
@@ -49,7 +49,7 @@ export function Hero() {
 
             {/* Heading */}
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 text-gradient leading-tight max-w-4xl mx-auto"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 sm:mb-6 text-gradient leading-tight max-w-4xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -59,7 +59,7 @@ export function Hero() {
 
             {/* Description */}
             <motion.p
-              className="text-base sm:text-xl md:text-2xl text-slate-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl text-slate-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -69,7 +69,7 @@ export function Hero() {
 
             {/* CTA */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
@@ -78,7 +78,7 @@ export function Hero() {
                 whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.35)' }}
                 whileTap={{ scale: 0.97 }}
                 onClick={scrollToContact}
-                className="btn-primary text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 font-semibold w-full sm:w-auto flex items-center justify-center gap-2 transition-all"
+                className="btn-primary text-base px-8 py-4 font-semibold w-full sm:w-auto flex items-center justify-center gap-2 transition-all shadow-lg shadow-cyan-500/20"
               >
                 <motion.span whileHover={{ rotate: 8 }}>
                   <Calendar className="w-5 h-5" />
@@ -89,7 +89,7 @@ export function Hero() {
             </motion.div>
 
             {/* ✅ ADDED TRUST LINE (10/10 CONVERSION BOOST) */}
-            <p className="text-xs text-slate-400 mt-3">
+            <p className="text-sm text-slate-400 mt-6 font-light">
               Trusted AI automation for startups & businesses
             </p>
 

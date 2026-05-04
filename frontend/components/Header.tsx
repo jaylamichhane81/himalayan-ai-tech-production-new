@@ -45,7 +45,7 @@ export function Header() {
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 bg-[#070A12]/70 backdrop-blur-xl border-b border-white/10 w-full"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
         {/* LOGO (FIXED SIZE) */}
         <motion.button
@@ -121,11 +121,13 @@ export function Header() {
       {/* MOBILE MENU */}
       {isMobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="sm:hidden fixed top-0 left-0 w-full bg-[#070A12]/95 backdrop-blur-xl border-t border-white/10 z-50"
         >
-          <div className="max-w-7xl mx-auto px-4 py-5 space-y-5">
+          <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
 
             <nav className="flex flex-col gap-4">
               {navItems.map((item) => (

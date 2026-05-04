@@ -126,7 +126,7 @@ export default function Chat() {
 
   return (
     <section id="chat" className="py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-4xl border border-slate-800/80 bg-slate-950/90 p-4 sm:p-6 shadow-2xl shadow-slate-950/40">
             <div className="mb-8">
