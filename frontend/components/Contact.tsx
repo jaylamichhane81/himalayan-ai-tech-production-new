@@ -51,12 +51,15 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0
   }
 
-  const apiBase = process.env.NEXT_PUBLIC_API_URL?.trim() || 'http://localhost:10000'
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:10000')
+    .trim()
+    .replace(/\/+$/, '')
 
   const contactMutation = useMutation({
     mutationFn: async (data: FormState) => {
       const res = await fetch(`${apiBase}/contact/`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,7 +67,8 @@ export default function Contact() {
       })
 
       if (!res.ok) {
-        throw new Error('Failed to send message')
+        const errorText = await res.text().catch(() => '')
+        throw new Error(errorText || 'Failed to send message')
       }
 
       return res.json()

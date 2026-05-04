@@ -21,7 +21,9 @@ export default function Chat() {
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
-  const apiBase = process.env.NEXT_PUBLIC_API_URL?.trim() || 'http://localhost:10000'
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:10000')
+    .trim()
+    .replace(/\/+$/, '')
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -31,6 +33,7 @@ export default function Chat() {
     try {
       const response = await fetch(`${apiBase}/ai/chat/stream`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'text/event-stream',

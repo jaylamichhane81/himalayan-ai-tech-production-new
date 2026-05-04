@@ -76,9 +76,10 @@ export const metadata: Metadata = {
     follow: true,
   },
 
+  // ✅ FIXED ICONS
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 }
 

@@ -24,10 +24,11 @@ export function Footer() {
       className="border-t border-ai-cyan/20 bg-linear-to-b from-midnight to-midnight-light/30 backdrop-blur-xl py-8 sm:py-10 md:py-12 px-3 sm:px-6 lg:px-12"
     >
       <div className="max-w-6xl mx-auto">
+
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-6">
 
-          {/* Logo and Description */}
+          {/* 🔥 Logo Section (UPDATED) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -35,27 +36,17 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <div className="flex justify-center md:justify-start items-center gap-3 mb-3">
-              <div className="relative w-10 h-10 sm:w-14 sm:h-14 shrink-0">
-                <Image
-                  src="/images/logo.png"
-                  alt="Himalayan AI Tech"
-                  fill
-                  className="object-contain"
-                  sizes="56px"
-                />
-              </div>
-              <div>
-                <div className="text-sm font-semibold uppercase tracking-widest text-ai-cyan leading-tight">
-                  Himalayan
-                </div>
-                <div className="text-lg font-bold text-white">
-                  AI Tech
-                </div>
-              </div>
+            <div className="flex justify-center md:justify-start items-center mb-4">
+              <Image
+                src="/logo-dark.svg"
+                alt="Himalayan AI Tech"
+                width={180}
+                height={55}
+                className="object-contain hover:opacity-80 transition duration-300"
+              />
             </div>
 
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
+            <p className="text-slate-400/90 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
               AI chatbots, intelligent websites and automation built to sell.
             </p>
           </motion.div>
@@ -142,7 +133,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-3">
 
             <p className="text-xs sm:text-sm text-slate-500 text-center md:text-left">
-              © 2026 Himalayan AI Tech. All rights reserved.
+              © {new Date().getFullYear()} Himalayan AI Tech. All rights reserved.
             </p>
 
             <div className="flex flex-wrap gap-4 sm:gap-6">
@@ -170,6 +161,7 @@ export function Footer() {
             </div>
           </div>
         </motion.div>
+
       </div>
     </motion.footer>
   )
