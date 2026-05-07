@@ -49,6 +49,7 @@ export function Header() {
 
         {/* LOGO (FIXED SIZE) */}
         <motion.button
+          type="button"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => handleNavClick('top')}
@@ -80,6 +81,7 @@ export function Header() {
           <nav className="flex items-center gap-8">
             {navItems.map((item) => (
               <motion.button
+                type="button"
                 key={item.id}
                 whileHover={{ y: -1 }}
                 onClick={() => handleNavClick(item.id)}
@@ -91,10 +93,11 @@ export function Header() {
           </nav>
 
           <motion.button
+            type="button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => handleNavClick('contact')}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-2 rounded-lg shadow-lg shadow-blue-500/10"
+            className="inline-flex items-center gap-2 bg-linear-to-r from-purple-600 to-blue-500 text-white px-4 py-2 rounded-lg shadow-lg shadow-blue-500/10"
           >
             <CalendarDays size={18} />
             <span>Book Consultation</span>
@@ -103,6 +106,7 @@ export function Header() {
 
         {/* MOBILE BUTTON */}
         <button
+          type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="sm:hidden p-2 text-slate-300 hover:text-white"
         >
@@ -142,8 +146,9 @@ export function Header() {
             </nav>
 
             <button
+              type="button"
               onClick={() => handleNavClick('contact')}
-              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-3 rounded-lg"
+              className="w-full inline-flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-blue-500 text-white px-4 py-3 rounded-lg"
             >
               <CalendarDays size={18} />
               <span>Book Consultation</span>

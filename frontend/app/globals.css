@@ -7,10 +7,19 @@
 }
 
 /* Animation Performance Optimizations */
-* {
+/* Avoid forcing every element onto its own GPU layer; this can break fixed positioning and mobile touch interaction. */
+.animate-float,
+.animate-glow,
+.animate-pulse {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Reduce motion for users who prefer it */
